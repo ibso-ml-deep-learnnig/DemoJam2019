@@ -1,7 +1,8 @@
 const request = require('request');
 const grpc = require('grpc');
+const protoDescriptor = require('./grpcLoader');
 
-function callAPI(companyCode, assetNumber, description) {
+function callAPI(asset_struct) {
     return new Promise((resolve, reject) => {
         request('http://localhost:50021', (err, body, res) => {
             if (err) reject(err);
@@ -10,23 +11,15 @@ function callAPI(companyCode, assetNumber, description) {
     })
 }
 
-function callDB(dbGRPC, apiLog) {
+function callDB(api_log) {
     return new Promise((resolve, reject) => {
-        let client = new dbGRPC('localhost:50051', grpc.credentials.createInsecure());
-        client.update({text: apiLog}, (err, res) => {
+        let asset = protoDescriptor.asset;
+        let client = new asset.DB('localhost:50051', grpc.credentials.createInsecure());
+        client.update({text: api_log}, (err, db_log) => {
             if (err) reject(err);
-            resolve(res.text);
+            resolve({api_log: api_log, db_log: db_log});
         })
-
     })
-}
-
-async function asyncCallAPI(companyCode, assetNumber, description) {
-    return await callAPI(companyCode, assetNumber, description);
-}
-
-async function asyncCallDB(dbGRPC, apiLog) {
-    return await callDB(dbGRPC, apiLog)
 }
 
 class AssetAgent {
@@ -37,11 +30,14 @@ class AssetAgent {
     }
 
     callAPI() {
-        return asyncCallAPI(this.companyCode, this.assetNumber, this.description);
-    }
-
-    updateDB(dbGRPC, apiLog) {
-        return asyncCallDB(dbGRPC, apiLog)
+        let promise = Promise.resolve({
+            company_code: this.companyCode,
+            asset_number: this.assetNumber,
+            description: this.description
+        });
+        return promise
+            .then(callAPI)
+            .then(callDB);
     }
 }
 

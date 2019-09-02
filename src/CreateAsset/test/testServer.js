@@ -6,8 +6,8 @@ app.get('/', (req, res) => {
     res.end();
 });
 
-app.post('/', (req, res) => {
-    console.log('Hello POST!');
+app.get('/abc', (req, res) => {
+    res.send('Hello Second World!');
     res.end();
 });
 

@@ -1,19 +1,33 @@
 const request = require('request');
 
-function callAPI(companyCode, assetNumber, description) {
+function callAPI(asset) {
     return new Promise((resolve, reject) => {
         request('http://localhost:50021', (err, body, res) => {
             if (err) reject(err);
-            console.log('in promise: %s', res);
-            resolve(res);
+            resolve({
+                res: res,
+                des: asset.des,
+                an: asset.an,
+                cc: asset.cc
+            });
         });
     })
 }
 
-async function asyncCall(companyCode, assetNumber, description) {
-    let res = await callAPI(companyCode, assetNumber, description);
-    console.log('in async: %s', res);
-    return res
+function callAPI2(api_one) {
+    return new Promise((resolve, reject) => {
+        request('http://localhost:50021/abc', (err, body, res) => {
+            console.log('i am here');
+            if (err) reject(err);
+            resolve({
+                res1: api_one.res,
+                res2: res,
+                cc: api_one.cc,
+                an: api_one.an,
+                des: api_one.des
+            })
+        })
+    })
 }
 
 class AssetAgent {
@@ -24,7 +38,14 @@ class AssetAgent {
     }
 
     callAPI() {
-        return asyncCall(this.companyCode, this.assetNumber, this.description);
+        let promise = Promise.resolve({
+            cc: this.companyCode,
+            an: this.assetNumber,
+            des: this.description
+        });
+        return promise
+            .then(callAPI)
+            .then(callAPI2);
     }
 }
 
