@@ -7,7 +7,7 @@ service CRUD {
 }
 
 service DB {
-    rpc update (log) returns (log);
+    rpc update (API_log) returns (DB_log);
 }
 
 message asset {
@@ -17,5 +17,14 @@ message asset {
 }
 
 message log {
+    API_log api_log = 1;
+    DB_log db_log = 2;
+}
+
+message API_log {
+    string text = 1;
+}
+
+message DB_log {
     string text = 1;
 }
