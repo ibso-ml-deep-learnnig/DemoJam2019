@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package asset;
+
+service CRUD {
+    rpc create (asset) returns (log);
+}
+
+message asset {
+    string company_code = 1;
+    string asset_number = 2;
+    string description = 3;
+}
+
+message log {
+    string text = 1;
+}
