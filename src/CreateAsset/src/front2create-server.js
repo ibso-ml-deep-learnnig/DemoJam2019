@@ -1,7 +1,6 @@
 const protoDescriptor = require('./grpcLoader');
 const grpc = require('grpc');
 const assetAgent = require('./createAsset');
-const OS = require('os');
 
 let asset = protoDescriptor.asset;
 
