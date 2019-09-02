@@ -2,7 +2,7 @@ const request = require('request');
 const grpc = require('grpc');
 const protoDescriptor = require('./grpcLoader');
 
-function callAPI(asset_struct) {
+function callAPI(value) {
     return new Promise((resolve, reject) => {
         request('http://localhost:50021', (err, body, res) => {
             if (err) reject(err);
@@ -11,13 +11,13 @@ function callAPI(asset_struct) {
     })
 }
 
-function callDB(api_log) {
+function callDB(value) {
     return new Promise((resolve, reject) => {
         let asset = protoDescriptor.asset;
         let client = new asset.DB('localhost:50051', grpc.credentials.createInsecure());
-        client.update({text: api_log}, (err, db_log) => {
+        client.update({text: value}, (err, res) => {
             if (err) reject(err);
-            resolve({api_log: api_log, db_log: db_log});
+            resolve({api_log: api_log, db_log: res.text});
         })
     })
 }

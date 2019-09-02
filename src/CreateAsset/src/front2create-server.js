@@ -11,9 +11,9 @@ function main() {
             let agent = new assetAgent(call.asset.company_code, call.asset.asset_number, call.asset.description);
             let res = agent.callAPI();
             res.then(value => {
-                callback(null, {api_log: value.api_log, db_log: value.db_log})
+                callback(null, {api_log: value.api_log, db_log: value.db_log, error: null})
             }).catch(error => {
-                callback(null, {api_log: error, db_log: error})
+                callback(null, {api_log: null, db_log: null, error: error})
             })
         }
     });
