@@ -6,6 +6,10 @@ service CRUD {
     rpc create (asset) returns (log);
 }
 
+service DB {
+    rpc update (log) returns (log);
+}
+
 message asset {
     string company_code = 1;
     string asset_number = 2;

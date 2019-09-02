@@ -1,3 +1,5 @@
+const request = require('request-promise');
+
 class AssetAgent {
     constructor(companyCode, assetNumber, description) {
         this.companyCode = companyCode;
