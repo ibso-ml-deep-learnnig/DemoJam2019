@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package token;
+
+service CRUD {
+    rpc getToken (key) returns (token);
+    rpc checkToken (check_value) returns (return);
+    rpc deleteToken (key) returns (return);
+}
+
+message token {
+    string value = 1;
+    string error = 2;
+}
+
+message return {
+    bool value = 1;
+}
+
+message key {
+    string value = 1;
+}
+
+message check_value {
+    string key = 1;
+    string token = 2;
+}

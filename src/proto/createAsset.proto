@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package asset;
+
+service CRUD {
+    rpc create (asset) returns (log);
+}
+
+service DB {
+    rpc update (api_log) returns (db_log);
+}
+
+message asset {
+    string company_code = 1;
+    string asset_number = 2;
+    string description = 3;
+}
+
+message log {
+    string api_log = 1;
+    string db_log = 2;
+    string error = 3;
+}
+
+message api_log {
+    string text = 1;
+}
+
+message db_log {
+    string text = 1;
+}
