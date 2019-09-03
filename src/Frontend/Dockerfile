@@ -10,6 +10,10 @@ COPY . .
 
 # set listen port
 ENV PORT "5000"
+ENV LOGIN_SERVICE_ADDR "login:50050"
+ENV ASSET_CREATION_SERVICE_ADDR "assetcreation:50051"
+ENV ASSET_DISPLAY)SERVICE_ADDR "assetdisplay:50053"
+
 EXPOSE 5000
 
 ENTRYPOINT ["python", "/Frontend/frontend_server.py"]
