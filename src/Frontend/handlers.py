@@ -58,7 +58,8 @@ def login():
       with grpc.insecure_channel(url) as channel:
           stub = account_pb2_grpc.AccountServiceStub(channel)
           response = stub.login(account_pb2.LoginRequest(user_id=user_id, password=password))
-
+          if response is None:
+              flash("No response from DB")
       session.clear()
       session["user_id"] = user_id
       session["user_name"] = response.user_name
