@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block header %}
+  <h1>{% block title %}Asset{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="company_code">Company Code</label>
+    <input name="company_code" id="company_code" required>
+
+    <label for="asset_class">Asset Class</label>
+    <input name="asset_class" id="asset_class" required>
+
+    <label for="description">Asset Description</label>
+    <input name="description" id="description" required>
+
+    <input type="submit" value="Create">
+  </form>
+{% endblock %}
