@@ -15,23 +15,23 @@ function main() {
             let token = crypto.randomBytes(32).toString('hex');
             let redisClient = redis.createClient();
             redisClient.on("error", (err) => {
-                callback(null, {tokenValue: null, error: err, isSuccess: false});
+                callback(undefined, {tokenValue: undefined, error: undefined, isSuccess: false});
             });
             // set key token pair to redis
             redisClient.set(key, token);
             redisClient.quit();
-            callback(null, {tokenValue: token, error: null, isSuccess: true});
+            callback(undefined, {tokenValue: token, error: undefined, isSuccess: true});
         },
         checkToken: (call, callback) => {
             console.log("check token called");
             let redisClient = redis.createClient();
             redisClient.on("error", (err) => {
-                callback(null, {tokenValue: null, error: err, isSuccess: false});
+                callback(undefined, {tokenValue: undefined, error: err, isSuccess: false});
             });
             redisClient.get(call.checkValue.keyValue, (err, reply) => {
-                if (err) callback(null, {return: false});
+                if (err) callback(undefined, {return: false});
                 if (reply.toString() === call.checkValue.tokenValue) {
-                    callback(null, {tokenValue: call.checkValue.tokenValue, error: null, isSuccess: true})
+                    callback(undefined, {tokenValue: call.checkValue.tokenValue, error: undefined, isSuccess: true})
                 }
             });
             redisClient.quit();
@@ -40,13 +40,13 @@ function main() {
             console.log("delete token called");
             let redisClient = redis.createClient();
             redisClient.on("error", (err) => {
-                callback(null, {tokenValue: null, error: err, isSuccess: false});
+                callback(undefined, {tokenValue: undefined, error: err, isSuccess: false});
             });
             redisClient.del(call.redisKey.keyValue, (err, response) => {
                 if (response === 1) {
-                    callback(null, {tokenValue: call.redisKey.keyValue, error: null, isSuccess: true});
+                    callback(undefined, {tokenValue: call.redisKey.keyValue, error: undefined, isSuccess: true});
                 } else {
-                    callback(null, {tokenValue: null, error: err, isSuccess: false})
+                    callback(undefined, {tokenValue: undefined, error: err, isSuccess: false})
                 }
             });
             redisClient.quit();
