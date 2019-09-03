@@ -1,7 +1,7 @@
 FROM python:3
 
 # get packages
-WORKDIR /app_frontend
+WORKDIR /Frontend
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
