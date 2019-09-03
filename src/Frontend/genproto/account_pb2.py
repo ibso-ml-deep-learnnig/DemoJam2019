@@ -239,8 +239,8 @@ _ACCOUNTSERVICE = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
-    name='account',
-    full_name='demojam2019.AccountService.account',
+    name='login',
+    full_name='demojam2019.AccountService.login',
     index=1,
     containing_service=None,
     input_type=_LOGINREQUEST,

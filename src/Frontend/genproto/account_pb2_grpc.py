@@ -3,6 +3,7 @@ import grpc
 
 from . import account_pb2 as account__pb2
 
+
 class AccountServiceStub(object):
   """-----------------Account Service-----------------
   """
@@ -19,7 +20,7 @@ class AccountServiceStub(object):
         response_deserializer=account__pb2.RegisterResponse.FromString,
         )
     self.login = channel.unary_unary(
-        '/demojam2019.AccountService/account',
+        '/demojam2019.AccountService/login',
         request_serializer=account__pb2.LoginRequest.SerializeToString,
         response_deserializer=account__pb2.LoginResponse.FromString,
         )
@@ -51,7 +52,7 @@ def add_AccountServiceServicer_to_server(servicer, server):
           request_deserializer=account__pb2.RegisterRequest.FromString,
           response_serializer=account__pb2.RegisterResponse.SerializeToString,
       ),
-      'account': grpc.unary_unary_rpc_method_handler(
+      'login': grpc.unary_unary_rpc_method_handler(
           servicer.login,
           request_deserializer=account__pb2.LoginRequest.FromString,
           response_serializer=account__pb2.LoginResponse.SerializeToString,
