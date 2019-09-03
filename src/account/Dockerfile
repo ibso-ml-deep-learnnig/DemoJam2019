@@ -6,7 +6,7 @@ RUN GRPC_HEALTH_PROBE_VERSION=v0.3.0 && \
     chmod +x /bin/grpc_health_probe
 
 # get packages
-WORKDIR /register
+WORKDIR /account
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
