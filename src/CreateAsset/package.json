@@ -10,6 +10,7 @@
     "grpc-caller": "^0.13.0",
     "lodash": "^4.6.1",
     "minimist": "^1.2.0",
+    "redis": "^2.8.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   }
