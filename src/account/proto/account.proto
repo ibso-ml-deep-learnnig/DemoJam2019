@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package demojam2019;
+
+// -----------------Account Service-----------------
+service AccountService {
+  rpc register (RegisterRequest) returns (RegisterResponse) {}
+  rpc login (LoginRequest) returns (LoginResponse) {}
+}
+
+message RegisterRequest {
+  string user_id = 1;
+  string user_name = 2;
+  string password = 3;
+  string password_confirm = 4;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+  string user_name = 2;
+}
+
+
+message LoginRequest {
+  string user_id = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string user_name = 1;
+}
