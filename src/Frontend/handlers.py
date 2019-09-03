@@ -9,11 +9,11 @@ from flask import render_template
 from flask import request
 from flask import session
 from flask import url_for
-
+import configparser as ConfigParser
 import grpc
 
-# from genproto import easyshop_pb2
-# from genproto import easyshop_pb2_grpc
+from genproto import account_pb2
+from genproto import account_pb2_grpc
 
 bp = Blueprint("handlers", __name__, url_prefix="/handlers")
 
@@ -44,14 +44,24 @@ def login():
     elif not password:
       error = "Password is required."
 
+    url = os.environ.get('ACCOUNT_SERVICE_ADDR')
+    if url == None:
+       config = ConfigParser.ConfigParser()
+       config.read('config.env')
+       url = config.get('WHITE_LIST', 'ACCOUNT_SERVICE_ADDR')
+
+    if url == '':
+        error = 'The account service is not available now'
+
     if error is None:
-      # with grpc.insecure_channel('login:50052') as channel:
-      #     stub = easyshop_pb2_grpc.AccountServiceStub(channel)
-      #     response = stub.login(easyshop_pb2.LoginRequest(user_id=user_id, password=password))
-      #
+
+      with grpc.insecure_channel(url) as channel:
+          stub = account_pb2_grpc.AccountServiceStub(channel)
+          response = stub.login(account_pb2.LoginRequest(user_id=user_id, password=password))
+
       session.clear()
       session["user_id"] = user_id
-      session["user_name"] = 'Eric Wu'
+      session["user_name"] = response.user_name
 
       flash('Login successfully')
 
@@ -88,15 +98,15 @@ def register():
 
     if error is None:
       # the name is available, store it in the database and go to
-      # the login page
+      # the account page
 
       # with grpc.insecure_channel('register:50051') as channel:
       #     stub = easyshop_pb2_grpc.AccountServiceStub(channel)
       #     response = stub.register(easyshop_pb2.RegisterRequest(user_id=user_id, user_name=user_name, password=password, password_confirm=password_confirm))
 
-      flash('Register successfully, please login')
+      flash('Register successfully, please account')
 
-      return redirect(url_for("handlers.login"))
+      return redirect(url_for("handlers.account"))
 
 
     flash(error)

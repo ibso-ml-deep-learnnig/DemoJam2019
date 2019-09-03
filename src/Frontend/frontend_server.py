@@ -1,8 +1,19 @@
 import os
+import configparser as ConfigParser
 
 from flask import Flask
 from flask import render_template
 from flask import jsonify
+
+def check_service():
+    config = ConfigParser.ConfigParser()
+    config.read('config.env')
+    for addr in config.options('WHITE_LIST'):
+        url = os.environ.get(addr)
+        if url==None:
+            url = config.get('WHITE_LIST', addr)
+
+        print(url)
 
 
 def create_app(test_config=None):
@@ -48,6 +59,8 @@ def create_app(test_config=None):
     # app.route, while giving the blog blueprint a url_prefix, but for
     # the tutorial the blog will be the main index
     app.add_url_rule("/", endpoint="home")
+
+    check_service()
 
     return app
 
