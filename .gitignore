@@ -1,2 +1,4 @@
 .idea
 src/CreateAsset/node_modules
+src/Token/node_modules
+node_modules
