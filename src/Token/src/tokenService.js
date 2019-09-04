@@ -10,8 +10,7 @@ function main() {
     server.addService(token.CRUD.service, {
         getToken: (call, callback) => {
             console.log("get token called");
-            let key = "";
-            call.redisKey.keyValue ? key = call.redisKey.keyValue : key = 'CreateAsset';
+            let key = call.redisKey.keyValue ? call.redisKey.keyValue : 'CreateAsset';
             let token = crypto.randomBytes(32).toString('hex');
             let redisClient = redis.createClient();
             redisClient.on("error", (err) => {
