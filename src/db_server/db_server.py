@@ -1,9 +1,9 @@
+import db as db
 from concurrent import futures
 import logging
 import time
 import os
 import grpc
-import db as db
 
 from genproto import db_pb2
 from genproto import db_pb2_grpc
@@ -51,7 +51,8 @@ def serve():
     port = os.environ.get('PORT')
 
     # start server
-    server.add_insecure_port('[::]:'+port)
+    # server.add_insecure_port('[::]:'+port)
+    server.add_insecure_port('[::]:' + '8001')
     server.start()
     try:
         while True:
