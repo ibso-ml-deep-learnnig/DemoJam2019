@@ -6,6 +6,8 @@ import grpc
 
 from genproto import account_pb2
 from genproto import account_pb2_grpc
+from genproto import db_pb2
+from genproto import db_pb2_grpc
 # from grpc_health.v1 import health_pb2
 # from grpc_health.v1 import health_pb2_grpc
 
@@ -28,8 +30,12 @@ class AccountService(account_pb2_grpc.AccountServiceServicer):
 
     def login(self, request, context):
         print('a user request to login')
-        response = account_pb2.LoginResponse()
-        response.user_name = 'myNameIsEric'
+        # response = account_pb2.LoginResponse()
+        # response.user_name = 'myNameIsEric'
+        url = os.environ.get('DB_SERVER_SERVICE_ADDR')
+        with grpc.insecure_channel(url) as channel:
+            stub = db_pb2_grpc.DBServiceStub(channel)
+            response = stub.login(db_pb2.LoginRequest(user_id=request.user_id, password=request.password))
         return response
 
     # def Check(self, request, context):

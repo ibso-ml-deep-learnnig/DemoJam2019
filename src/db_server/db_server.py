@@ -3,6 +3,7 @@ import logging
 import time
 import os
 import grpc
+import db as db
 
 from genproto import db_pb2
 from genproto import db_pb2_grpc
@@ -27,9 +28,9 @@ class DBService(db_pb2_grpc.DBServiceServicer):
         return response
 
     def login(self, request, context):
-        print('a user request to login')
-        response = db_pb2.LoginResponse()
-        response.user_name = 'myNameIsEric'
+        print('start connect to DB')
+        conn = db.get_connection()
+        response = db.select_user_by_user_id(conn, id=request.user_id, password=request.password)
         return response
 
     def updatelog(self, request, context):
@@ -47,7 +48,7 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     db_pb2_grpc.add_DBServiceServicer_to_server(DBService(), server)
     # health_pb2_grpc.add_HealthServicer_to_server(AccountService(), server)
-    port = os.environ.get('PORT', "80052")
+    port = os.environ.get('PORT')
 
     # start server
     server.add_insecure_port('[::]:'+port)

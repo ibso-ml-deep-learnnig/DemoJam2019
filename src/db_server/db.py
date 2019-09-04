@@ -7,19 +7,19 @@ def get_connection():
         'user': 'root',
         'password': 'helloworld01',
         'host': 'db',
-        'port': '3306',
+        'port': '80050',
         'database': 'grpc',
         'auth_plugin': 'mysql_native_password'
     }
   return mysql.connector.connect(**config)
 
-def select_user_by_user_id(conn, id):
+def select_user_by_user_id(conn, id, password):
 
     cursor = conn.cursor(buffered=True)
 
-    query = ("SELECT u.user_id, u.user_name FROM user AS u WHERE user_id = %s")
+    query = ("SELECT u.user_id, u.user_name FROM user AS u WHERE user_id = %s password = %s")
 
-    cursor.execute(query, (id,))
+    cursor.execute(query, (id, password))
 
     name = ''
     for (user_id, user_name) in cursor:
