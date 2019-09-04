@@ -7,7 +7,7 @@ Build a mysql image
 
 Run the image
 
-    $ docker run -d -p 80051:80051 --name db -e MYSQL_ROOT_PASSWORD=helloworld01 db:latest --default-authentication-plugin=mysql_native_password
+    $ docker run -d -p 80050:80050 --name db -e MYSQL_ROOT_PASSWORD=helloworld01 db:latest --default-authentication-plugin=mysql_native_password
     
 
 Start up a Admin tool
