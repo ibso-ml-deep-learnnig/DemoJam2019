@@ -1,0 +1,12 @@
+version: "2"
+services:
+
+  frontend:
+    image: ericwudocker01/demojam2019_frontend
+    ports:
+      - "5000:5000"
+
+  account:
+    image: ericwudocker01/demojam2019_account
+    ports:
+      - "50050:50050"

@@ -15,7 +15,7 @@ function main() {
             // }).catch(error => {
             //     callback(null, {api_log: null, db_log: null, error: error})
             // })
-            callback(null, {api_log: "Hi", db_log: "shit", error: "man"})
+            callback(undefined, {api_log: "Hi", db_log: "shit", error: "man"})
         }
     });
     server.bind('localhost:50051', grpc.ServerCredentials.createInsecure());
