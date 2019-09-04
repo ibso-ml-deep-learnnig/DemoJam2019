@@ -1,5 +1,5 @@
 {
-  "name": "CreateAsset",
+  "name": "TokenService",
   "version": "1.0.0",
   "dependencies": {
     "@grpc/proto-loader": "^0.1.0",

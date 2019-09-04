@@ -3,25 +3,22 @@ syntax = "proto3";
 package token;
 
 service CRUD {
-    rpc getToken (key) returns (token);
-    rpc checkToken (check_value) returns (return);
-    rpc deleteToken (key) returns (return);
+    rpc getToken (redisKey) returns (response);
+    rpc checkToken (checkValue) returns (response);
+    rpc deleteToken (redisKey) returns (response);
 }
 
-message token {
-    string value = 1;
+message response {
+    string tokenValue = 1;
     string error = 2;
+    bool isSuccess = 3;
 }
 
-message return {
-    bool value = 1;
+message redisKey {
+    string keyValue = 1;
 }
 
-message key {
-    string value = 1;
-}
-
-message check_value {
-    string key = 1;
-    string token = 2;
+message checkValue {
+    string keyValue = 1;
+    string tokenValue = 2;
 }
