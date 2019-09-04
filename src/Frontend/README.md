@@ -1,15 +1,14 @@
-Frontend
-
-Docker image: 
+# Frontend
 
 Frontend exposes an HTTP server (a Flask app) to browse the website for users.
-It forwards each request to the corresponding backend service to process, behind responses result to user. 
+It forwards each request to the corresponding backend service to process, behind, responses processing result to user. 
 
-The backend serives list
+The Docker image @dockerhub:  ericwudocker01/demojam2019_frontend
 
-Service| Language|  Service Name| Port| Description|
+The list of backend services.
 
-login   
-Create Asset
-Display Asset
-
+| Action            | Backend Service        | Exposed Port | Language      | Description                  |
+| ----------------- | -----------------------| ------------ | ------------- | -----------------------------|
+| Login             | account/login          | 50050        | Python        | Handler user's login request |
+| Register          | account/register       | 50050        | Python        | Handler register request  |
+| Create Asset      | AssetCreation      | 50051        | Node.js        | Create asset  |
