@@ -7,7 +7,7 @@ def get_connection():
         'user': 'root',
         'password': 'helloworld01',
         'host': 'db',
-        'port': '80050',
+        'port': '8000',
         'database': 'grpc',
         'auth_plugin': 'mysql_native_password'
     }

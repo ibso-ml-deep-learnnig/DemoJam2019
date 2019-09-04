@@ -7,7 +7,7 @@ Build a db_server image
 
 Run the image
 
-    $ docker run -d -p 80051:80051 --link db:db db_server:latest
+    $ docker run -d -p 8001:8001 --link db:db db_server:latest
     
 
 Start up a Admin tool

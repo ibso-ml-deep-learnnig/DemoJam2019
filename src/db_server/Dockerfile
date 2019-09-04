@@ -8,7 +8,7 @@ RUN pip install -r requirements.txt
 # add files into working directory
 COPY . .
 
-EXPOSE 80051
-ENV PORT "80051"
+EXPOSE 8001
+ENV PORT "8001"
 
 ENTRYPOINT ["python", "/db_server/db_server.py"]

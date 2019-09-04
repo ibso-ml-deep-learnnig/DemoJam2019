@@ -15,7 +15,7 @@ COPY . .
 
 # set listen port
 ENV PORT "50050"
-ENV DB_SERVER_SERVICE_ADDR "db_server:80051"
+ENV DB_SERVER_SERVICE_ADDR "db_server:8001"
 
 EXPOSE 50050
 
