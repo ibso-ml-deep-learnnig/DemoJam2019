@@ -35,7 +35,7 @@ class AccountService(account_pb2_grpc.AccountServiceServicer):
         url = os.environ.get('DB_SERVER_SERVICE_ADDR')
         with grpc.insecure_channel(url) as channel:
             stub = db_pb2_grpc.DBServiceStub(channel)
-            response = stub.login_db(db_pb2.LoginRequest.db(user_id_db=request.user_id, password_db=request.password))
+            response = stub.login_db(db_pb2.LoginRequest_db(user_id_db=request.user_id, password_db=request.password))
         return response
 
     # def Check(self, request, context):
