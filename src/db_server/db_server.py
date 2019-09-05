@@ -48,11 +48,10 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     db_pb2_grpc.add_DBServiceServicer_to_server(DBService(), server)
     # health_pb2_grpc.add_HealthServicer_to_server(AccountService(), server)
-    port = os.environ.get('PORT')
+    port = os.environ.get('PORT', '8001')
 
     # start server
-    # server.add_insecure_port('[::]:'+port)
-    server.add_insecure_port('[::]:' + '8001')
+    server.add_insecure_port('[::]:'+port)
     server.start()
     try:
         while True:
