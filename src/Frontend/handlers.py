@@ -36,9 +36,8 @@ def login():
   if request.method == "POST":
     user_id = request.form["user_id"]
     password = request.form["password"]
-
     error = None
-
+    print(user_id, password)
     if not user_id:
       error = "User ID is required."
     elif not password:
@@ -54,9 +53,9 @@ def login():
         error = 'The account service is not available now'
 
     if error is None:
-
       with grpc.insecure_channel(url) as channel:
           stub = account_pb2_grpc.AccountServiceStub(channel)
+          print(url)
           response = stub.login(account_pb2.LoginRequest(user_id=user_id, password=password))
           if response is None:
               flash("No response from DB")
