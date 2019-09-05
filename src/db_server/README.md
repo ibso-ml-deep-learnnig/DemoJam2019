@@ -2,12 +2,12 @@
 
 Build a db_server image
 
-    $ docker build -t db_server .
+    $ docker build -t hme000/hme1:db_server .
     
 
 Run the image
 
-    $ docker run -d -p 8001:8001 --link db:db db_server:latest
+    $ docker run -d -p 8001:8001 --link db:db hme000/hme1:db_server
     
 
 Start up a Admin tool
