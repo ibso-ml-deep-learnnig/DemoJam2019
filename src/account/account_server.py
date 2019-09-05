@@ -30,12 +30,13 @@ class AccountService(account_pb2_grpc.AccountServiceServicer):
 
     def login(self, request, context):
         print('a user request to login')
-        # response = account_pb2.LoginResponse()
+        response = account_pb2.LoginResponse()
         # response.user_name = 'myNameIsEric'
         url = os.environ.get('DB_SERVER_SERVICE_ADDR')
         with grpc.insecure_channel(url) as channel:
             stub = db_pb2_grpc.DBServiceStub(channel)
-            response = stub.login_db(db_pb2.LoginRequest_db(user_id_db=request.user_id, password_db=request.password))
+            response_db = stub.login_db(db_pb2.LoginRequest_db(user_id_db=request.user_id, password_db=request.password))
+            response.user_name = response_db.user_name_db
         return response
 
     # def Check(self, request, context):
