@@ -57,13 +57,14 @@ def login():
           stub = account_pb2_grpc.AccountServiceStub(channel)
           print(url)
           response = stub.login(account_pb2.LoginRequest(user_id=user_id, password=password))
-          if response is None:
-              flash("No response from DB")
-      session.clear()
-      session["user_id"] = user_id
-      session["user_name"] = response.user_name
+          if response.user_name is None:
+              flash("ID or Password is wrong")
+          else:
+              session.clear()
+              session["user_id"] = user_id
+              session["user_name"] = response.user_name
 
-      flash('Login successfully')
+              flash('Login successfully')
 
       return redirect(url_for("home"))
 

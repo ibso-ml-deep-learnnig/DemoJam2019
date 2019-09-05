@@ -18,25 +18,18 @@ class DBService(db_pb2_grpc.DBServiceServicer):
         response = db_pb2.RegisterResponse_db()
         response.user_id_db = request.user_id_db
         response.user_name_db = request.user_name_db
-        # conn = db.get_connection()
-        # user_name = db.select_user_by_user_id(conn, request.user_id)
-        #
-        # if user_name == '':
-        #     db.create_user(db.get_connection(), request.user_id, request.user_name, request.password)
-
-
         return response
 
     def login_db(self, request, context):
         print('start connect to DB')
         conn = db.get_connection()
-        response = db_pb2.LoginResponse_db
+        response = db_pb2.LoginResponse_db()
         response.user_name_db = db.select_user_by_user_id(conn, id=request.user_id_db, password=request.password_db)
         return response
 
     def updatelog_db(self, request, context):
         print('a user request to login')
-        response = db_pb2.db_log_db
+        response = db_pb2.db_log_db()
         response.user_name_db = 'myNameIsEric'
         return response
 
