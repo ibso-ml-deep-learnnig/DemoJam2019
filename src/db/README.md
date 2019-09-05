@@ -2,7 +2,7 @@
 
 Build a mysql image   
 
-    $ docker build -t db .
+    $ docker build -t hme000/hme1:db .
     
 
 Run the image
