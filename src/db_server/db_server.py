@@ -13,7 +13,7 @@ from genproto import db_pb2_grpc
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 class DBService(db_pb2_grpc.DBServiceServicer):
-    def register(self, request, context):
+    def register_db(self, request, context):
 
         response = db_pb2.RegisterResponse_db()
         response.user_id_db = request.user_id_db
@@ -27,13 +27,13 @@ class DBService(db_pb2_grpc.DBServiceServicer):
 
         return response
 
-    def login(self, request, context):
+    def login_db(self, request, context):
         print('start connect to DB')
         conn = db.get_connection()
         response = db.select_user_by_user_id(conn, id=request.user_id_db, password=request.password_db)
         return response
 
-    def updatelog(self, request, context):
+    def updatelog_db(self, request, context):
         print('a user request to login')
         response = db_pb2.db_log_db
         response.user_name_db = 'myNameIsEric'
