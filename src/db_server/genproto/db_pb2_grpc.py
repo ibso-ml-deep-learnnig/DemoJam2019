@@ -14,20 +14,20 @@ class DBServiceStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.register = channel.unary_unary(
-        '/demojam2019.DBService/register',
-        request_serializer=db__pb2.RegisterRequest.SerializeToString,
-        response_deserializer=db__pb2.RegisterResponse.FromString,
+    self.register_db = channel.unary_unary(
+        '/demojam2019.DBService/register_db',
+        request_serializer=db__pb2.RegisterRequest_db.SerializeToString,
+        response_deserializer=db__pb2.RegisterResponse_db.FromString,
         )
-    self.login = channel.unary_unary(
-        '/demojam2019.DBService/login',
-        request_serializer=db__pb2.LoginRequest.SerializeToString,
-        response_deserializer=db__pb2.LoginResponse.FromString,
+    self.login_db = channel.unary_unary(
+        '/demojam2019.DBService/login_db',
+        request_serializer=db__pb2.LoginRequest_db.SerializeToString,
+        response_deserializer=db__pb2.LoginResponse_db.FromString,
         )
-    self.addlog = channel.unary_unary(
-        '/demojam2019.DBService/addlog',
-        request_serializer=db__pb2.api_log.SerializeToString,
-        response_deserializer=db__pb2.db_log.FromString,
+    self.addlog_db = channel.unary_unary(
+        '/demojam2019.DBService/addlog_db',
+        request_serializer=db__pb2.api_log_db.SerializeToString,
+        response_deserializer=db__pb2.db_log_db.FromString,
         )
 
 
@@ -35,21 +35,21 @@ class DBServiceServicer(object):
   """-----------------Db Service-----------------
   """
 
-  def register(self, request, context):
+  def register_db(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def login(self, request, context):
+  def login_db(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def addlog(self, request, context):
+  def addlog_db(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -59,20 +59,20 @@ class DBServiceServicer(object):
 
 def add_DBServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'register': grpc.unary_unary_rpc_method_handler(
-          servicer.register,
-          request_deserializer=db__pb2.RegisterRequest.FromString,
-          response_serializer=db__pb2.RegisterResponse.SerializeToString,
+      'register_db': grpc.unary_unary_rpc_method_handler(
+          servicer.register_db,
+          request_deserializer=db__pb2.RegisterRequest_db.FromString,
+          response_serializer=db__pb2.RegisterResponse_db.SerializeToString,
       ),
-      'login': grpc.unary_unary_rpc_method_handler(
-          servicer.login,
-          request_deserializer=db__pb2.LoginRequest.FromString,
-          response_serializer=db__pb2.LoginResponse.SerializeToString,
+      'login_db': grpc.unary_unary_rpc_method_handler(
+          servicer.login_db,
+          request_deserializer=db__pb2.LoginRequest_db.FromString,
+          response_serializer=db__pb2.LoginResponse_db.SerializeToString,
       ),
-      'addlog': grpc.unary_unary_rpc_method_handler(
-          servicer.addlog,
-          request_deserializer=db__pb2.api_log.FromString,
-          response_serializer=db__pb2.db_log.SerializeToString,
+      'addlog_db': grpc.unary_unary_rpc_method_handler(
+          servicer.addlog_db,
+          request_deserializer=db__pb2.api_log_db.FromString,
+          response_serializer=db__pb2.db_log_db.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

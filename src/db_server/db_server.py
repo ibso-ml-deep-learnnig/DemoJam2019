@@ -15,9 +15,9 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 class DBService(db_pb2_grpc.DBServiceServicer):
     def register(self, request, context):
 
-        response = db_pb2.RegisterResponse()
-        response.user_id = request.user_id
-        response.user_name = request.user_name
+        response = db_pb2.RegisterResponse_db()
+        response.user_id_db = request.user_id_db
+        response.user_name_db = request.user_name_db
         # conn = db.get_connection()
         # user_name = db.select_user_by_user_id(conn, request.user_id)
         #
@@ -30,13 +30,13 @@ class DBService(db_pb2_grpc.DBServiceServicer):
     def login(self, request, context):
         print('start connect to DB')
         conn = db.get_connection()
-        response = db.select_user_by_user_id(conn, id=request.user_id, password=request.password)
+        response = db.select_user_by_user_id(conn, id=request.user_id_db, password=request.password_db)
         return response
 
     def updatelog(self, request, context):
         print('a user request to login')
-        response = db_pb2.db_log
-        response.user_name = 'myNameIsEric'
+        response = db_pb2.db_log_db
+        response.user_name_db = 'myNameIsEric'
         return response
 
     # def Check(self, request, context):

@@ -20,42 +20,42 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='demojam2019',
   syntax='proto3',
   serialized_options=_b('\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'),
-  serialized_pb=_b('\n\x08\x64\x62.proto\x12\x0b\x64\x65mojam2019\"a\n\x0fRegisterRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tuser_name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\x12\x18\n\x10password_confirm\x18\x04 \x01(\t\"6\n\x10RegisterResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x11\n\tuser_name\x18\x02 \x01(\t\"1\n\x0cLoginRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\"\n\rLoginResponse\x12\x11\n\tuser_name\x18\x01 \x01(\t\"\x17\n\x07\x61pi_log\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x16\n\x06\x64\x62_log\x12\x0c\n\x04text\x18\x01 \x01(\t2\xcf\x01\n\tDBService\x12I\n\x08register\x12\x1c.demojam2019.RegisterRequest\x1a\x1d.demojam2019.RegisterResponse\"\x00\x12@\n\x05login\x12\x19.demojam2019.LoginRequest\x1a\x1a.demojam2019.LoginResponse\"\x00\x12\x35\n\x06\x61\x64\x64log\x12\x14.demojam2019.api_log\x1a\x13.demojam2019.db_log\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+  serialized_pb=_b('\n\x08\x64\x62.proto\x12\x0b\x64\x65mojam2019\"p\n\x12RegisterRequest_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x14\n\x0cuser_name_db\x18\x02 \x01(\t\x12\x13\n\x0bpassword_db\x18\x03 \x01(\t\x12\x1b\n\x13password_confirm_db\x18\x04 \x01(\t\"?\n\x13RegisterResponse_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x14\n\x0cuser_name_db\x18\x02 \x01(\t\":\n\x0fLoginRequest_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x13\n\x0bpassword_db\x18\x02 \x01(\t\"(\n\x10LoginResponse_db\x12\x14\n\x0cuser_name_db\x18\x01 \x01(\t\"\x1d\n\napi_log_db\x12\x0f\n\x07text_db\x18\x01 \x01(\t\"\x1c\n\tdb_log_db\x12\x0f\n\x07text_db\x18\x01 \x01(\t2\xea\x01\n\tDBService\x12R\n\x0bregister_db\x12\x1f.demojam2019.RegisterRequest_db\x1a .demojam2019.RegisterResponse_db\"\x00\x12I\n\x08login_db\x12\x1c.demojam2019.LoginRequest_db\x1a\x1d.demojam2019.LoginResponse_db\"\x00\x12>\n\taddlog_db\x12\x17.demojam2019.api_log_db\x1a\x16.demojam2019.db_log_db\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 )
 
 
 
 
-_REGISTERREQUEST = _descriptor.Descriptor(
-  name='RegisterRequest',
-  full_name='demojam2019.RegisterRequest',
+_REGISTERREQUEST_DB = _descriptor.Descriptor(
+  name='RegisterRequest_db',
+  full_name='demojam2019.RegisterRequest_db',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='demojam2019.RegisterRequest.user_id', index=0,
+      name='user_id_db', full_name='demojam2019.RegisterRequest_db.user_id_db', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='user_name', full_name='demojam2019.RegisterRequest.user_name', index=1,
+      name='user_name_db', full_name='demojam2019.RegisterRequest_db.user_name_db', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='password', full_name='demojam2019.RegisterRequest.password', index=2,
+      name='password_db', full_name='demojam2019.RegisterRequest_db.password_db', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='password_confirm', full_name='demojam2019.RegisterRequest.password_confirm', index=3,
+      name='password_confirm_db', full_name='demojam2019.RegisterRequest_db.password_confirm_db', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -74,26 +74,26 @@ _REGISTERREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=25,
-  serialized_end=122,
+  serialized_end=137,
 )
 
 
-_REGISTERRESPONSE = _descriptor.Descriptor(
-  name='RegisterResponse',
-  full_name='demojam2019.RegisterResponse',
+_REGISTERRESPONSE_DB = _descriptor.Descriptor(
+  name='RegisterResponse_db',
+  full_name='demojam2019.RegisterResponse_db',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='demojam2019.RegisterResponse.user_id', index=0,
+      name='user_id_db', full_name='demojam2019.RegisterResponse_db.user_id_db', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='user_name', full_name='demojam2019.RegisterResponse.user_name', index=1,
+      name='user_name_db', full_name='demojam2019.RegisterResponse_db.user_name_db', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -111,27 +111,27 @@ _REGISTERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=124,
-  serialized_end=178,
+  serialized_start=139,
+  serialized_end=202,
 )
 
 
-_LOGINREQUEST = _descriptor.Descriptor(
-  name='LoginRequest',
-  full_name='demojam2019.LoginRequest',
+_LOGINREQUEST_DB = _descriptor.Descriptor(
+  name='LoginRequest_db',
+  full_name='demojam2019.LoginRequest_db',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='demojam2019.LoginRequest.user_id', index=0,
+      name='user_id_db', full_name='demojam2019.LoginRequest_db.user_id_db', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='password', full_name='demojam2019.LoginRequest.password', index=1,
+      name='password_db', full_name='demojam2019.LoginRequest_db.password_db', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -149,20 +149,20 @@ _LOGINREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=180,
-  serialized_end=229,
+  serialized_start=204,
+  serialized_end=262,
 )
 
 
-_LOGINRESPONSE = _descriptor.Descriptor(
-  name='LoginResponse',
-  full_name='demojam2019.LoginResponse',
+_LOGINRESPONSE_DB = _descriptor.Descriptor(
+  name='LoginResponse_db',
+  full_name='demojam2019.LoginResponse_db',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_name', full_name='demojam2019.LoginResponse.user_name', index=0,
+      name='user_name_db', full_name='demojam2019.LoginResponse_db.user_name_db', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -180,20 +180,20 @@ _LOGINRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=231,
-  serialized_end=265,
+  serialized_start=264,
+  serialized_end=304,
 )
 
 
-_API_LOG = _descriptor.Descriptor(
-  name='api_log',
-  full_name='demojam2019.api_log',
+_API_LOG_DB = _descriptor.Descriptor(
+  name='api_log_db',
+  full_name='demojam2019.api_log_db',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='text', full_name='demojam2019.api_log.text', index=0,
+      name='text_db', full_name='demojam2019.api_log_db.text_db', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -211,20 +211,20 @@ _API_LOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=267,
-  serialized_end=290,
+  serialized_start=306,
+  serialized_end=335,
 )
 
 
-_DB_LOG = _descriptor.Descriptor(
-  name='db_log',
-  full_name='demojam2019.db_log',
+_DB_LOG_DB = _descriptor.Descriptor(
+  name='db_log_db',
+  full_name='demojam2019.db_log_db',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='text', full_name='demojam2019.db_log.text', index=0,
+      name='text_db', full_name='demojam2019.db_log_db.text_db', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -242,59 +242,59 @@ _DB_LOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=292,
-  serialized_end=314,
+  serialized_start=337,
+  serialized_end=365,
 )
 
-DESCRIPTOR.message_types_by_name['RegisterRequest'] = _REGISTERREQUEST
-DESCRIPTOR.message_types_by_name['RegisterResponse'] = _REGISTERRESPONSE
-DESCRIPTOR.message_types_by_name['LoginRequest'] = _LOGINREQUEST
-DESCRIPTOR.message_types_by_name['LoginResponse'] = _LOGINRESPONSE
-DESCRIPTOR.message_types_by_name['api_log'] = _API_LOG
-DESCRIPTOR.message_types_by_name['db_log'] = _DB_LOG
+DESCRIPTOR.message_types_by_name['RegisterRequest_db'] = _REGISTERREQUEST_DB
+DESCRIPTOR.message_types_by_name['RegisterResponse_db'] = _REGISTERRESPONSE_DB
+DESCRIPTOR.message_types_by_name['LoginRequest_db'] = _LOGINREQUEST_DB
+DESCRIPTOR.message_types_by_name['LoginResponse_db'] = _LOGINRESPONSE_DB
+DESCRIPTOR.message_types_by_name['api_log_db'] = _API_LOG_DB
+DESCRIPTOR.message_types_by_name['db_log_db'] = _DB_LOG_DB
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-RegisterRequest = _reflection.GeneratedProtocolMessageType('RegisterRequest', (_message.Message,), {
-  'DESCRIPTOR' : _REGISTERREQUEST,
+RegisterRequest_db = _reflection.GeneratedProtocolMessageType('RegisterRequest_db', (_message.Message,), {
+  'DESCRIPTOR' : _REGISTERREQUEST_DB,
   '__module__' : 'db_pb2'
-  # @@protoc_insertion_point(class_scope:demojam2019.RegisterRequest)
+  # @@protoc_insertion_point(class_scope:demojam2019.RegisterRequest_db)
   })
-_sym_db.RegisterMessage(RegisterRequest)
+_sym_db.RegisterMessage(RegisterRequest_db)
 
-RegisterResponse = _reflection.GeneratedProtocolMessageType('RegisterResponse', (_message.Message,), {
-  'DESCRIPTOR' : _REGISTERRESPONSE,
+RegisterResponse_db = _reflection.GeneratedProtocolMessageType('RegisterResponse_db', (_message.Message,), {
+  'DESCRIPTOR' : _REGISTERRESPONSE_DB,
   '__module__' : 'db_pb2'
-  # @@protoc_insertion_point(class_scope:demojam2019.RegisterResponse)
+  # @@protoc_insertion_point(class_scope:demojam2019.RegisterResponse_db)
   })
-_sym_db.RegisterMessage(RegisterResponse)
+_sym_db.RegisterMessage(RegisterResponse_db)
 
-LoginRequest = _reflection.GeneratedProtocolMessageType('LoginRequest', (_message.Message,), {
-  'DESCRIPTOR' : _LOGINREQUEST,
+LoginRequest_db = _reflection.GeneratedProtocolMessageType('LoginRequest_db', (_message.Message,), {
+  'DESCRIPTOR' : _LOGINREQUEST_DB,
   '__module__' : 'db_pb2'
-  # @@protoc_insertion_point(class_scope:demojam2019.LoginRequest)
+  # @@protoc_insertion_point(class_scope:demojam2019.LoginRequest_db)
   })
-_sym_db.RegisterMessage(LoginRequest)
+_sym_db.RegisterMessage(LoginRequest_db)
 
-LoginResponse = _reflection.GeneratedProtocolMessageType('LoginResponse', (_message.Message,), {
-  'DESCRIPTOR' : _LOGINRESPONSE,
+LoginResponse_db = _reflection.GeneratedProtocolMessageType('LoginResponse_db', (_message.Message,), {
+  'DESCRIPTOR' : _LOGINRESPONSE_DB,
   '__module__' : 'db_pb2'
-  # @@protoc_insertion_point(class_scope:demojam2019.LoginResponse)
+  # @@protoc_insertion_point(class_scope:demojam2019.LoginResponse_db)
   })
-_sym_db.RegisterMessage(LoginResponse)
+_sym_db.RegisterMessage(LoginResponse_db)
 
-api_log = _reflection.GeneratedProtocolMessageType('api_log', (_message.Message,), {
-  'DESCRIPTOR' : _API_LOG,
+api_log_db = _reflection.GeneratedProtocolMessageType('api_log_db', (_message.Message,), {
+  'DESCRIPTOR' : _API_LOG_DB,
   '__module__' : 'db_pb2'
-  # @@protoc_insertion_point(class_scope:demojam2019.api_log)
+  # @@protoc_insertion_point(class_scope:demojam2019.api_log_db)
   })
-_sym_db.RegisterMessage(api_log)
+_sym_db.RegisterMessage(api_log_db)
 
-db_log = _reflection.GeneratedProtocolMessageType('db_log', (_message.Message,), {
-  'DESCRIPTOR' : _DB_LOG,
+db_log_db = _reflection.GeneratedProtocolMessageType('db_log_db', (_message.Message,), {
+  'DESCRIPTOR' : _DB_LOG_DB,
   '__module__' : 'db_pb2'
-  # @@protoc_insertion_point(class_scope:demojam2019.db_log)
+  # @@protoc_insertion_point(class_scope:demojam2019.db_log_db)
   })
-_sym_db.RegisterMessage(db_log)
+_sym_db.RegisterMessage(db_log_db)
 
 
 DESCRIPTOR._options = None
@@ -305,34 +305,34 @@ _DBSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=317,
-  serialized_end=524,
+  serialized_start=368,
+  serialized_end=602,
   methods=[
   _descriptor.MethodDescriptor(
-    name='register',
-    full_name='demojam2019.DBService.register',
+    name='register_db',
+    full_name='demojam2019.DBService.register_db',
     index=0,
     containing_service=None,
-    input_type=_REGISTERREQUEST,
-    output_type=_REGISTERRESPONSE,
+    input_type=_REGISTERREQUEST_DB,
+    output_type=_REGISTERRESPONSE_DB,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
-    name='login',
-    full_name='demojam2019.DBService.login',
+    name='login_db',
+    full_name='demojam2019.DBService.login_db',
     index=1,
     containing_service=None,
-    input_type=_LOGINREQUEST,
-    output_type=_LOGINRESPONSE,
+    input_type=_LOGINREQUEST_DB,
+    output_type=_LOGINRESPONSE_DB,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
-    name='addlog',
-    full_name='demojam2019.DBService.addlog',
+    name='addlog_db',
+    full_name='demojam2019.DBService.addlog_db',
     index=2,
     containing_service=None,
-    input_type=_API_LOG,
-    output_type=_DB_LOG,
+    input_type=_API_LOG_DB,
+    output_type=_DB_LOG_DB,
     serialized_options=None,
   ),
 ])

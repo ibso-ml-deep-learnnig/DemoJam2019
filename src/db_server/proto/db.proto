@@ -9,37 +9,37 @@ package demojam2019;
 
 // -----------------Db Service-----------------
 service DBService {
-  rpc register (RegisterRequest) returns (RegisterResponse) {}
-  rpc login (LoginRequest) returns (LoginResponse) {}
-  rpc addlog (api_log) returns (db_log) {}
+  rpc register_db (RegisterRequest_db) returns (RegisterResponse_db) {}
+  rpc login_db (LoginRequest_db) returns (LoginResponse_db) {}
+  rpc addlog_db (api_log_db) returns (db_log_db) {}
 }
 
-message RegisterRequest {
-  string user_id = 1;
-  string user_name = 2;
-  string password = 3;
-  string password_confirm = 4;
+message RegisterRequest_db {
+  string user_id_db = 1;
+  string user_name_db = 2;
+  string password_db = 3;
+  string password_confirm_db = 4;
 }
 
-message RegisterResponse {
-  string user_id = 1;
-  string user_name = 2;
+message RegisterResponse_db {
+  string user_id_db = 1;
+  string user_name_db = 2;
 }
 
 
-message LoginRequest {
-  string user_id = 1;
-  string password = 2;
+message LoginRequest_db {
+  string user_id_db = 1;
+  string password_db = 2;
 }
 
-message LoginResponse {
-  string user_name = 1;
+message LoginResponse_db {
+  string user_name_db = 1;
 }
 
-message api_log {
-    string text = 1;
+message api_log_db {
+    string text_db= 1;
 }
 
-message db_log {
-    string text = 1;
+message db_log_db {
+    string text_db = 1;
 }

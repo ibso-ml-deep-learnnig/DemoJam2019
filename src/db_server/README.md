@@ -7,7 +7,7 @@ Build a db_server image
 
 Run the image
 
-    $ docker run -d -p 8001:8001 --link db:db hme000/hme1:db_server
+    $ docker run --name db_server -d -p 8001:8001 --link db:db hme000/hme1:db_server
     
 
 Start up a Admin tool
