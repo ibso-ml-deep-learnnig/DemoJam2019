@@ -2,16 +2,20 @@ syntax = "proto3";
 
 package asset;
 
-service CRUD {
-    rpc create (asset) returns (log);
-    rpc display (asset) returns (assetResponse);
+service s4api {
+    rpc create (assetInputs) returns (log);
+    rpc display (assetNumber) returns (assetResponse);
 }
 
-service DB {
+service DBapi {
     rpc update (api_log) returns (db_log);
 }
 
-message asset {
+message assetNumber {
+    string value = 1;
+}
+
+message assetInputs {
     string company_code = 1;
     string asset_number = 2;
     string description = 3;
