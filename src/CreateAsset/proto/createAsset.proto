@@ -4,6 +4,7 @@ package asset;
 
 service CRUD {
     rpc create (asset) returns (log);
+    rpc display (asset) returns (assetResponse);
 }
 
 service DB {
@@ -14,6 +15,13 @@ message asset {
     string company_code = 1;
     string asset_number = 2;
     string description = 3;
+}
+
+message assetResponse {
+    string company_code = 1;
+    string asset_number = 2;
+    string description = 3;
+    string log = 4;
 }
 
 message log {

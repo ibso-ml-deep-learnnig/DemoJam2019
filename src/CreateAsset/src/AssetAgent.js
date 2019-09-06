@@ -2,9 +2,10 @@ const request = require('request');
 const grpc = require('grpc');
 const protoDescriptor = require('./grpcLoader');
 
-function callAPI(value) {
+function callS4CreateAssetAPI(value) {
     return new Promise((resolve, reject) => {
         request('http://localhost:50021', (err, body, res) => {
+            //TODO: mock S4 API
             if (err) reject(err);
             resolve(res);
         });
@@ -22,6 +23,16 @@ function callDB(value) {
     })
 }
 
+function callS4DisplayAssetAPI() {
+    return new Promise((resolve, reject) => {
+        request('http://localhost:55021', (err, body, res) => {
+            // TODO: mock S4 API
+            if (err) reject(err);
+            resolve(res);
+        })
+    })
+}
+
 class AssetAgent {
     constructor(companyCode, assetNumber, description) {
         this.companyCode = companyCode;
@@ -29,15 +40,24 @@ class AssetAgent {
         this.description = description;
     }
 
-    callAPI() {
+    createAsset() {
         let promise = Promise.resolve({
             company_code: this.companyCode,
             asset_number: this.assetNumber,
             description: this.description
         });
         return promise
-            .then(callAPI)
+            .then(callS4CreateAssetAPI)
             .then(callDB);
+    }
+
+    displayAsset() {
+        let promise = Promise.resolve({
+            company_code: this.companyCode,
+            asset_number: this.assetNumber,
+            description: this.description
+        });
+        return promise.then(callS4DisplayAssetAPI)
     }
 }
 
