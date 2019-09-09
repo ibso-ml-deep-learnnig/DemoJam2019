@@ -2,6 +2,7 @@ const protoDescriptor = require('./grpcLoader');
 const grpc = require('grpc');
 const assetAgent = require('./AssetAgent');
 
+const port = process.env.PORT;
 let asset = protoDescriptor.asset;
 
 function main() {
@@ -35,7 +36,8 @@ function main() {
             });
         }
     });
-    server.bind('localhost:50051', grpc.ServerCredentials.createInsecure());
+    server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure());
+    console.log()
     server.start();
 }
 
