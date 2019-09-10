@@ -8,10 +8,16 @@ services:
 
   account:
     image: ericwudocker01/demojam2019_account
+    ports:
+      - "50050:50050"
+
+  dbservice:
+    image: ericwudocker01/demojam2019_asset
     links:
       - db
     ports:
-      - "50050:50050"
+      - "8001:8001"
+
 
   db:
     image: ericwudocker01/db:latest
@@ -33,3 +39,5 @@ services:
     image: ericwudocker01/demojam2019_asset
     ports:
       - "50051:50051"
+
+
