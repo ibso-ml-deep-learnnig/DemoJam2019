@@ -14,6 +14,8 @@ import grpc
 
 from genproto import account_pb2
 from genproto import account_pb2_grpc
+from genproto import createAsset_pb2
+from genproto import createAsset_pb2_grpc
 
 bp = Blueprint("handlers", __name__, url_prefix="/handlers")
 
@@ -117,6 +119,25 @@ def register():
 @bp.route("/CreateAsset", methods=("GET", "POST"))
 def createAsset():
   if request.method == "POST":
+      error = None
+      url = os.environ.get('ASSET_CREATION_SERVICE_ADDR')
+      if url == None:
+          config = ConfigParser.ConfigParser()
+          config.read('config.env')
+          url = config.get('WHITE_LIST', 'ASSET_CREATION_SERVICE_ADDR')
+
+      if url == '':
+          error = 'The asset service is not available now'
+
+      if error is None:
+          with grpc.insecure_channel(url) as channel:
+              stub = createAsset_pb2_grpc.s4apiStub(channel)
+              print(url)
+              response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
+              if response.log is None:
+                  flash("Failed")
+              else:
+                  flash('Create successfully')
       return redirect(url_for("home"))
 
   return render_template("page/CreateAsset.html")
