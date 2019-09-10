@@ -31,7 +31,8 @@ function main() {
                 callback(undefined, {
                     company_code: value.company_code,
                     asset_number: value.asset_number,
-                    description: value.description
+                    description: value.description,
+                    log: undefined
                 })
             }).catch(error => {
                 callback(undefined, {
