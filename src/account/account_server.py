@@ -33,7 +33,10 @@ class AccountService(account_pb2_grpc.AccountServiceServicer):
         response = account_pb2.LoginResponse()
         # response.user_name = 'myNameIsEric'
         url = os.environ.get('DB_SERVER_SERVICE_ADDR')
-        with grpc.insecure_channel(url) as channel:
+        if url is None:
+            response.user_name = 'I333463'
+        else:
+          with grpc.insecure_channel(url) as channel:
             stub = db_pb2_grpc.DBServiceStub(channel)
             response_db = stub.login_db(db_pb2.LoginRequest_db(user_id_db=request.user_id, password_db=request.password))
             response.user_name = response_db.user_name_db
