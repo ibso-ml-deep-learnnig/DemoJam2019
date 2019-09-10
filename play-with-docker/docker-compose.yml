@@ -28,3 +28,8 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+  assetcreation:
+    image: ericwudocker01/demojam2019_asset
+    ports:
+      - "50051:50051"
