@@ -6,7 +6,9 @@ function callS4CreateAssetAPI(value) {
     return new Promise((resolve, reject) => {
         request('http://localhost:50021', (err, body, res) => {
             //TODO: mock S4 API
+            console.log('create asset');
             if (err) reject(err);
+            console.log(typeof res);
             resolve(res);
         });
     })
@@ -18,6 +20,7 @@ function updateAsset2DB(value) {
         let client = new assetDB.DBapi('localhost:50051', grpc.credentials.createInsecure());
         client.update({text: value}, (err, res) => {
             if (err) reject(err);
+            console.log(typeof res);
             resolve({api_log: api_log, db_log: res.text});
         })
     })
@@ -28,6 +31,7 @@ function callS4DisplayAssetAPI(value) {
         request('http://localhost:55021', (err, body, res) => {
             // TODO: mock S4 API
             if (err) reject(err);
+            console.log(typeof res);
             resolve(res);
         })
     })

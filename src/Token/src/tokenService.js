@@ -4,6 +4,7 @@ const redis = require('redis');
 const crypto = require('crypto');
 
 let token = protoDescriptor.token;
+let port = process.env.PORT;
 
 function main() {
     let server = new grpc.Server();
@@ -51,7 +52,7 @@ function main() {
             redisClient.quit();
         }
     });
-    server.bind('localhost:50052', grpc.ServerCredentials.createInsecure());
+    server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure());
     server.start();
 }
 
