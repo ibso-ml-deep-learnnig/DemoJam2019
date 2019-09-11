@@ -1,12 +1,12 @@
-const protoDescriptor = require('./grpcLoader');
+const protoDescriptors = require('./grpcLoader');
 const grpc = require('grpc');
 const assetAgent = require('./AssetAgent');
 
 const port = process.env.PORT;
 const address = port ? `0.0.0.0:${port}` : 'localhost:50051';
-const HEALTH_PROTO_PATH = path.join(__dirname, './proto/grpc/health/v1/health.proto');
-const healthProto = _loadProto(HEALTH_PROTO_PATH).grpc.health.v1;
-let asset = protoDescriptor.asset;
+
+let asset = protoDescriptors.assetProto.asset;
+let health = protoDescriptors.healthProto.grpc.health.v1;
 
 function main() {
     let server = new grpc.Server();
@@ -48,8 +48,12 @@ function main() {
             });
         }
     });
+    server.addService(health.Health.service, {
+        Check: (call, callback) => {
+
+        }
+    });
     server.bind(address, grpc.ServerCredentials.createInsecure());
-    server.addService(healthProto.Health.service, {check});
     server.start();
     console.log(`Asset service on: ${address}`);
 }
