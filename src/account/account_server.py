@@ -34,7 +34,10 @@ class AccountService(account_pb2_grpc.AccountServiceServicer):
         # response.user_name = 'myNameIsEric'
         url = os.environ.get('DB_SERVER_SERVICE_ADDR')
         if url is None:
-            response.user_name = 'I333463'
+            if request.user_id == 'i333463' and request.password == '123456':
+              response.user_name = 'Eric Wu'
+            else:
+                response.user_name = ''
         else:
           with grpc.insecure_channel(url) as channel:
             stub = db_pb2_grpc.DBServiceStub(channel)
