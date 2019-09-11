@@ -8,8 +8,8 @@ from genproto import account_pb2
 from genproto import account_pb2_grpc
 from genproto import db_pb2
 from genproto import db_pb2_grpc
-# from grpc_health.v1 import health_pb2
-# from grpc_health.v1 import health_pb2_grpc
+from grpc_health.v1 import health_pb2
+from grpc_health.v1 import health_pb2_grpc
 
 from logger import getJSONLogger
 
@@ -58,9 +58,9 @@ class AccountService(account_pb2_grpc.AccountServiceServicer):
 
         return response
 
-    # def Check(self, request, context):
-    #     return health_pb2.HealthCheckResponse(
-    #         status=health_pb2.HealthCheckResponse.SERVING)
+    def Check(self, request, context):
+        return health_pb2.HealthCheckResponse(
+            status=health_pb2.HealthCheckResponse.SERVING)
 
 
 def serve():
@@ -68,7 +68,7 @@ def serve():
     service = AccountService()
 
     account_pb2_grpc.add_AccountServiceServicer_to_server(service, server)
-    # health_pb2_grpc.add_HealthServicer_to_server(AccountService(), server)
+    health_pb2_grpc.add_HealthServicer_to_server(AccountService(), server)
 
     port = os.environ.get('PORT', "50050")
 
