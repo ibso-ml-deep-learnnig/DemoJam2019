@@ -139,10 +139,12 @@ def createAsset():
           with grpc.insecure_channel(url) as channel:
               stub = createAsset_pb2_grpc.s4apiStub(channel)
               response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
-              if response.log is None:
-                  flash("Failed")
-              else:
-                  flash('Create successfully')
+
+              logger.info("response from asset service api log: " +response.api_log)
+              logger.info("response from asset service db log: " +response.db_log)
+              logger.info("response from asset service error: " +response.error)
+
+      flash('Create successfully')
       return redirect(url_for("home"))
 
   return render_template("page/CreateAsset.html")
