@@ -59,7 +59,7 @@ def login():
           stub = account_pb2_grpc.AccountServiceStub(channel)
           print(url)
           response = stub.login(account_pb2.LoginRequest(user_id=user_id, password=password))
-          if response.user_name is None:
+          if response.user_name == '':
               flash("ID or Password is wrong")
           else:
               session.clear()
