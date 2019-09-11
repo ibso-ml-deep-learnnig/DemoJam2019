@@ -44,7 +44,7 @@ spec:
           - name: PORT
             value: "50050"
           - name: DB_SERVER_SERVICE_ADDR
-            value: "db_server:8001"
+            value: "db-server:8001"
 #          resources:
 #            requests:
 #              cpu: 100m

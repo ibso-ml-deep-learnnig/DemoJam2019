@@ -21,7 +21,7 @@ metadata:
   name: db
 spec:
   # link the statefulset to its headless service
-  serviceName: "testdb"
+  serviceName: "db"
   replicas: 1
   selector:
     matchLabels:
