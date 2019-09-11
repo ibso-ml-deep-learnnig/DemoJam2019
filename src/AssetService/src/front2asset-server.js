@@ -4,6 +4,8 @@ const assetAgent = require('./AssetAgent');
 
 const port = process.env.PORT;
 const address = port ? `0.0.0.0:${port}` : 'localhost:50051';
+const HEALTH_PROTO_PATH = path.join(__dirname, './proto/grpc/health/v1/health.proto');
+const healthProto = _loadProto(HEALTH_PROTO_PATH).grpc.health.v1;
 let asset = protoDescriptor.asset;
 
 function main() {
@@ -47,6 +49,7 @@ function main() {
         }
     });
     server.bind(address, grpc.ServerCredentials.createInsecure());
+    server.addService(healthProto.Health.service, {check});
     server.start();
     console.log(`Asset service on: ${address}`);
 }

@@ -7,8 +7,8 @@ import grpc
 
 from genproto import db_pb2
 from genproto import db_pb2_grpc
-# from grpc_health.v1 import health_pb2
-# from grpc_health.v1 import health_pb2_grpc
+from grpc_health.v1 import health_pb2
+from grpc_health.v1 import health_pb2_grpc
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -33,15 +33,15 @@ class DBService(db_pb2_grpc.DBServiceServicer):
         response.user_name_db = 'myNameIsEric'
         return response
 
-    # def Check(self, request, context):
-    #     return health_pb2.HealthCheckResponse(
-    #         status=health_pb2.HealthCheckResponse.SERVING)
+    def Check(self, request, context):
+        return health_pb2.HealthCheckResponse(
+            status=health_pb2.HealthCheckResponse.SERVING)
 
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     db_pb2_grpc.add_DBServiceServicer_to_server(DBService(), server)
-    # health_pb2_grpc.add_HealthServicer_to_server(AccountService(), server)
+    health_pb2_grpc.add_HealthServicer_to_server(AccountService(), server)
     port = os.environ.get('PORT', '8001')
 
     # start server
