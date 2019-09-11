@@ -15,5 +15,6 @@ COPY . .
 
 EXPOSE 8001
 ENV PORT "8001"
+ENV DB_ADDR "db"
 
 ENTRYPOINT ["python", "/db_server/db_server.py"]
