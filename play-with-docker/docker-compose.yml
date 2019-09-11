@@ -18,9 +18,8 @@ services:
     ports:
       - "8001:8001"
 
-
   db:
-    image: ericwudocker01/db:latest
+    image: ericwudocker01/demojam2019_mysql
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "3306:3306"
