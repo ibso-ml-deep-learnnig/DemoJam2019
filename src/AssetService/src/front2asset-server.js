@@ -3,6 +3,7 @@ const grpc = require('grpc');
 const assetAgent = require('./AssetAgent');
 
 const port = process.env.PORT;
+const address = port ? `0.0.0.0:${port}` : 'localhost:50051';
 let asset = protoDescriptor.asset;
 
 function main() {
@@ -17,15 +18,16 @@ function main() {
             //     callback(undefined, {api_log: undefined, db_log: undefined, error: undefined})
             // });
             // Mock create API
+            console.log(call.request);
             let response = JSON.stringify({
-                company_code: call.assetInputs.company_code,
-                asset_number: call.assetInputs.asset_number,
-                description: call.assetInputs.description
+                company_code: call.request.company_code,
+                asset_number: call.request.asset_number,
+                description: call.request.description
             });
             callback(undefined, {api_log: response, db_log: "here is db log", error: undefined})
         },
         display: (call, callback) => {
-            let agent = new assetAgent(call.assetNumber.value);
+            let agent = new assetAgent(call.request.value);
             let res = agent.displayAsset();
             res.then(value => {
                 callback(undefined, {
@@ -44,9 +46,9 @@ function main() {
             });
         }
     });
-    server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure());
-    console.log()
+    server.bind(address, grpc.ServerCredentials.createInsecure());
     server.start();
+    console.log(`Asset service on: ${address}`);
 }
 
 main();
