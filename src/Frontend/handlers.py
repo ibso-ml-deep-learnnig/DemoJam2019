@@ -17,6 +17,10 @@ from genproto import account_pb2_grpc
 from genproto import createAsset_pb2
 from genproto import createAsset_pb2_grpc
 
+from logger import getJSONLogger
+
+logger = getJSONLogger('frontend-server')
+
 bp = Blueprint("handlers", __name__, url_prefix="/handlers")
 
 @bp.before_app_request
@@ -131,9 +135,9 @@ def createAsset():
           error = 'The asset service is not available now'
 
       if error is None:
+          logger.info("asset service address: " + url)
           with grpc.insecure_channel(url) as channel:
               stub = createAsset_pb2_grpc.s4apiStub(channel)
-              print(url)
               response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
               if response.log is None:
                   flash("Failed")
