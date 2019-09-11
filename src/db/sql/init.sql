@@ -11,3 +11,8 @@ CREATE TABLE log (
   db_log VARCHAR(50),
   error VARCHAR(50)
 );
+
+INSERT INTO user (user_id, user_name, password)
+VALUES
+('i333463',	'Eric Wu',	'123456'),
+('admin',	'admin',	'admin');
