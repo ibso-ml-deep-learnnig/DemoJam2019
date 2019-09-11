@@ -2,12 +2,12 @@ import mysql.connector
 
 
 
-def get_connection(url):
+def get_connection(url, port):
   config = {
         'user': 'root',
         'password': 'helloworld01',
         'host': url,
-        'port': '3306',
+        'port': port,
         'database': 'grpc',
         'auth_plugin': 'mysql_native_password'
     }
