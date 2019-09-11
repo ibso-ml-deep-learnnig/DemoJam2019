@@ -26,8 +26,6 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: helloworld01
-    volumes:
-      - ./sql/:/docker-entrypoint-initdb.d/:ro
 
   adminer:
     image: adminer
