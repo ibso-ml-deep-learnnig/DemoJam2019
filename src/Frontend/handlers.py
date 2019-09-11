@@ -60,17 +60,18 @@ def login():
           print(url)
           response = stub.login(account_pb2.LoginRequest(user_id=user_id, password=password))
           if response.user_name == '':
-              flash("ID or Password is wrong")
+              error = "User ID or Password is not correct"
           else:
               session.clear()
               session["user_id"] = user_id
               session["user_name"] = response.user_name
 
-              flash('Login successfully')
-
-      return redirect(url_for("home"))
-
-    flash(error)
+    if error is None:
+        flash('Login successfully')
+        return redirect(url_for("home"))
+    else:
+        flash(error)
+        return redirect(url_for("handlers.login"))
 
   return render_template("page/login.html")
 
