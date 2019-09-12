@@ -50,7 +50,7 @@ function main() {
     });
     server.addService(health.Health.service, {
         Check: (call, callback) => {
-            callback(null, { status: 'SERVING' });
+            callback(null, { status: 'SERVING' })
         });
     server.bind(address, grpc.ServerCredentials.createInsecure());
     server.start();
