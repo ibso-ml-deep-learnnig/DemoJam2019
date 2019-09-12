@@ -22,7 +22,9 @@ class DBService(db_pb2_grpc.DBServiceServicer):
 
     def login_db(self, request, context):
         print('start connect to DB')
-        conn = db.get_connection()
+        url = os.environ.get('DB_ADDR')
+        port = os.environ.get('DB_PORT')
+        conn = db.get_connection(url, port)
         response = db_pb2.LoginResponse_db()
         response.user_name_db = db.select_user_by_user_id(conn, id=request.user_id_db, password=request.password_db)
         return response
@@ -41,7 +43,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     db_pb2_grpc.add_DBServiceServicer_to_server(DBService(), server)
-    health_pb2_grpc.add_HealthServicer_to_server(AccountService(), server)
+    health_pb2_grpc.add_HealthServicer_to_server(DBService(), server)
     port = os.environ.get('PORT', '8001')
 
     # start server

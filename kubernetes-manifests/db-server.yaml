@@ -15,16 +15,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db_server
+  name: db-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: db_server
+      app: db-server
   template:
     metadata:
       labels:
-        app: db_server
+        app: db-server
     spec:
       containers:
         - name: server
@@ -40,11 +40,13 @@ spec:
             initialDelaySeconds: 10
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:8001"]
-#          env:
-#          - name: PORT
-#            value: "8001"
-#          - name: DB_SERVER_SERVICE_ADDR
-#            value: "db_server:8001"
+          env:
+          - name: PORT
+            value: "8001"
+          - name: DB_ADDR
+            value: "db"
+          - name: DB_PORT
+            value: "3306"
 #          resources:
 #            requests:
 #              cpu: 100m
@@ -57,13 +59,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: db_server
+  name: db-server
 spec:
   type: ClusterIP
   selector:
-    app: db_server
+    app: db-server
   ports:
   - name: http
-    port: 1235
+    port: 8001
     targetPort: 8001
 ---
