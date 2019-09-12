@@ -64,6 +64,6 @@ spec:
     app: account
   ports:
   - name: http
-    port: 1234
+    port: 50050
     targetPort: 50050
 ---

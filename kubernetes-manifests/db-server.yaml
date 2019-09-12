@@ -66,6 +66,6 @@ spec:
     app: db-server
   ports:
   - name: http
-    port: 1235
+    port: 8001
     targetPort: 8001
 ---
