@@ -49,10 +49,10 @@ function main() {
         }
     });
 //    server.addService(health.Health.service, {
-//        check: (call, callback) => {
+//        Check: (call, callback) => {
 //
 //        });
-    server.addService(health.Health.service, {check});
+    server.addService(health.Health.service, {Check});
     server.bind(address, grpc.ServerCredentials.createInsecure());
     server.start();
     console.log(`Asset service on: ${address}`);
