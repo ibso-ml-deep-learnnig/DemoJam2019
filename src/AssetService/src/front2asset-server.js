@@ -51,7 +51,8 @@ function main() {
     server.addService(health.Health.service, {
         Check: (call, callback) => {
             callback(null, { status: 'SERVING' })
-        });
+        }
+     });
     server.bind(address, grpc.ServerCredentials.createInsecure());
     server.start();
     console.log(`Asset service on: ${address}`);
