@@ -3,8 +3,11 @@ const grpc = require('grpc');
 const redis = require('redis');
 const crypto = require('crypto');
 
-let token = protoDescriptor.token;
+let token = protoDescriptor.tokenProto.token;
+let health = protoDescriptor.healthProto.grpc.health.v1;
+
 let port = process.env.PORT;
+const address = port ? `0.0.0.0:${port}` : 'localhost:50051';
 
 function main() {
     let server = new grpc.Server();
@@ -52,8 +55,14 @@ function main() {
             redisClient.quit();
         }
     });
-    server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure());
+    server.addService(health.Health.service, {
+        Check: (call, callback) => {
+            callback(undefined, {status: 'SERVING'})
+        }
+    });
+    server.bind(address, grpc.ServerCredentials.createInsecure());
     server.start();
+    console.log(`Token service on: ${address}`);
 }
 
 main();
