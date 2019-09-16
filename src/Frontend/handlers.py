@@ -23,6 +23,17 @@ logger = getJSONLogger('frontend-server')
 
 bp = Blueprint("handlers", __name__, url_prefix="/handlers")
 
+def login_required(view):
+    """View decorator that redirects anonymous users to the login page."""
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for("handlers.login"))
+
+        return view(**kwargs)
+
+    return wrapped_view
+
 @bp.before_app_request
 def load_logged_in_user():
     """If a user id is stored in the session, load the user object from
@@ -120,7 +131,9 @@ def register():
 
   return render_template("page/register.html")
 
+
 @bp.route("/CreateAsset", methods=("GET", "POST"))
+@login_required
 def createAsset():
   if request.method == "POST":
       error = None
@@ -148,7 +161,9 @@ def createAsset():
 
   return render_template("page/CreateAsset.html")
 
+
 @bp.route("/explore", methods=("GET", "POST"))
+@login_required
 def explore():
     assets = [
         {
@@ -178,5 +193,4 @@ def explore():
 def logout():
     """Clear the current session, including the stored user id."""
     session.clear()
-    flash('Logout successfully')
     return redirect(url_for("home"))
