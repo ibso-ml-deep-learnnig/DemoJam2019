@@ -17,40 +17,23 @@
                     Asset Explorer
                 </a>
 
+                <div class="row">
                {% if g.user %}
-                 <li><span>Welcome {{ g.user['user_name'] }}</span>
-                 <li><a href="{{ url_for('handlers.createAsset') }}">Create Asset</a>
-                 <li><a href="{{ url_for('handlers.logout') }}">Log Out</a>
+                    <div class="col"><h5 class="text-white">{{ g.user['user_name'] }}</h5></div>
+                    <!-- <div class="col"><a href="{{ url_for('handlers.explore') }}" class="btn btn-primary btn-light" role="button">Explore</a></div> -->
+                    <!-- <div class="col"><a href="{{ url_for('handlers.createAsset') }}" class="btn btn-primary btn-light" role="button">Create</a></div> -->
+                    <div class="col"><a href="{{ url_for('handlers.logout') }}" class="btn btn-info" role="button">Log Out &rarr;</a></div>
+
                {% else %}
-
-                 <a href="{{ url_for('handlers.login') }}" class="btn btn-primary btn-light mr-2" role="button">
-                       Login
-                 </a>
-
+                 <a href="{{ url_for('handlers.login') }}" class="btn btn-primary btn-light" role="button">Login</a>
                {% endif %}
+                </div>
             </div>
         </div>
     </header>
     <main role="main">
-        <section class="jumbotron text-center mb-0">
-            <div class="container">
-                <h1 class="jumbotron-heading">
-                    One-stop for Asset Management &amp; Explorer
-                </h1>
-                <p class="lead text-muted">
-                    Manage and Explore your items from a unique endpoint.
-                    Getting start with create an asset now!
-                </p>
-            </div>
-        </section>
 
         <section class="content">
-            <header>
-              {% block header %}{% endblock %}
-            </header>
-            {% for message in get_flashed_messages() %}
-              <div class="flash">{{ message }}</div>
-            {% endfor %}
             {% block content %}{% endblock %}
         </section>
     </main>

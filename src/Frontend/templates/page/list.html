@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<section class="jumbotron text-center mb-0">
+    <div class="container">
+        <h1 class="jumbotron-heading">
+            One-stop for Asset Management &amp; Explorer
+        </h1>
+        <p class="lead text-muted">
+            Manage and Explore your items from a unique endpoint.
+            Getting start with create an asset now!
+        </p>
+    </div>
+</section>
+<div class="py-5 bg-light">
+    <div class="container">
+    <div class="row">
+        {% for asset in assets %}
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                {% if asset.id == 'add_new_asset' %}
+                <a href="/handlers/CreateAsset">
+                    <img class="card-img-top" alt =""
+                        style="width: 100%; height: auto;"
+                        src="{{asset.picture}}">
+                </a>
+                {% else %}
+                <a href="/asset/{{asset.id}}">
+                    <img class="card-img-top" alt =""
+                        style="width: 100%; height: auto;"
+                        src="{{asset.picture}}">
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ asset.description }}
+                    </h5>
+                    {% if asset.id == 'add_new_asset' %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="/handlers/CreateAsset">
+                                <button type="button" class="btn btn-sm btn-outline-primary">New Asset</button>
+                            </a>
+                        </div>
+                        <small class="text-muted">
+                            {{ asset.number }}
+                        </strong>
+                        </small>
+                    </div>
+                    {% else %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="/asset/{{asset.id}}">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Detail</button>
+                            </a>
+                        </div>
+                        <small class="text-muted">
+                            {{ asset.number }}
+                        </strong>
+                        </small>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+{% endblock %}

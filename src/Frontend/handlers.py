@@ -71,8 +71,7 @@ def login():
               session["user_name"] = response.user_name
 
     if error is None:
-        flash('Login successfully')
-        return redirect(url_for("home"))
+        return redirect(url_for("handlers.explore"))
     else:
         flash(error)
         return redirect(url_for("handlers.login"))
@@ -149,6 +148,31 @@ def createAsset():
 
   return render_template("page/CreateAsset.html")
 
+@bp.route("/explore", methods=("GET", "POST"))
+def explore():
+    assets = [
+        {
+            'id': 'add_new_asset',
+            'number': '<New Asset>',
+            'description': 'Add New...',
+            'picture': '../static/asset/add_new.png'
+        },
+        {
+            'id': '1',
+            'number': 'a0001',
+            'description': 'air plants',
+            'picture': '../static/asset/a0001.jpg'
+        },
+        {
+            'id': '2',
+            'number': 'a0002',
+            'description': 'Vintage Camera Lens',
+            'picture': '../static/asset/a0002.jpg'
+        }
+    ]
+
+
+    return render_template("page/list.html", assets=assets)
 
 @bp.route("/logout", methods=("GET", "POST"))
 def logout():

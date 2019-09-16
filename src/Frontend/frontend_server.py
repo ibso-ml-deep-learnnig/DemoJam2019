@@ -41,7 +41,7 @@ def create_app(test_config=None):
 
     @app.route("/home")
     def home():
-        return render_template("index.html")
+        return render_template("home.html")
 
     @app.route("/healthz", methods=("GET", "POST"))
     def healthz():
