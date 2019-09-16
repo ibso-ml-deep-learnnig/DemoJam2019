@@ -144,7 +144,7 @@ def createAsset():
               logger.info("response from asset service error: " +response.error)
 
       flash('Create successfully')
-      return redirect(url_for("handlers.CreateAsset"))
+      return redirect(url_for("handlers.createAsset"))
 
   return render_template("page/CreateAsset.html")
 
