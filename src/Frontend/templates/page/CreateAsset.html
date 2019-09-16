@@ -1,83 +1,83 @@
 {% extends 'index.html' %}
 
 {% block content %}
-        <div class="py-5">
-            <div class="container bg-light py-3 px-lg-5 py-lg-5">
+<div class="py-5">
+    <div class="container bg-light py-3 px-lg-5 py-lg-5">
 
-              <form method="POST">
+      <form method="POST">
 
-                    <div class="row">
-                    {% for message in get_flashed_messages() %}
-                      <h6 class=""> {{ message }}</h6>
-                    {% endfor %}
-                    </div>
-
-                    <div class="row mb-3 py-2">
-                        <div class="col">
-                            <h3>Fill in the asset information</h3>
-                        </div>
-                        <div class="col text-right">
-                           <button class="btn btn-info" type="submit">Create</button>
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    <div class="row py-3 my-2">
-                        <div class="col-12 col-lg-8 offset-lg-2">
-                            <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                  <label for="company_code">Company Code</label>
-                                </div>
-
-                                 <div class="col-md-2 mb-3">
-                                   <input type="text" class="form-control" id="company_code"
-                                            name="company_code" value="1000" required>
-                                </div>
-                            </div>
-
-                             <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="asset_class">Asset Class</label>
-                                </div>
-
-                                <div class="col-md-5 mb-3">
-                                  <select name="asset_class" id="asset_class"
-                                        class="form-control">
-                                        <option value="1">Real Estate</option>
-                                        <option value="2">Buildings</option>
-                                        <option value="3">Machinery</option>
-                                        <option value="4">Vehicles</option>
-                                        <option value="5">Assets under construction</option>
-                                        <option value="6">Low-value assets</option>
-                                        <option value="7">Leased assets</option>
-                                     </select>
-                               </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="asset_number">Asset Number</label>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                  <input class="form-control" name="asset_number" id="asset_number"
-                                            value="" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="description">Description</label>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                  <input type="text" class="form-control" id="description"
-                                        name="description"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-              </form>
+            <div class="row">
+            {% for message in get_flashed_messages() %}
+              <h6 class=""> {{ message }}</h6>
+            {% endfor %}
             </div>
-        </div>
+
+            <div class="row mb-3 py-2">
+                <div class="col">
+                    <h3>Fill in the asset information</h3>
+                </div>
+                <div class="col text-right">
+                   <button class="btn btn-info" type="submit">Create</button>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row py-3 my-2">
+                <div class="col-12 col-lg-8 offset-lg-2">
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                          <label for="company_code">Company Code</label>
+                        </div>
+
+                         <div class="col-md-2 mb-3">
+                           <input type="text" class="form-control" id="company_code"
+                                    name="company_code" value="1000" required>
+                        </div>
+                    </div>
+
+                     <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="asset_class">Asset Class</label>
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                          <select name="asset_class" id="asset_class"
+                                class="form-control">
+                                <option value="1">Real Estate</option>
+                                <option value="2">Buildings</option>
+                                <option value="3">Machinery</option>
+                                <option value="4">Vehicles</option>
+                                <option value="5">Assets under construction</option>
+                                <option value="6">Low-value assets</option>
+                                <option value="7">Leased assets</option>
+                             </select>
+                       </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="asset_number">Asset Number</label>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <input class="form-control" name="asset_number" id="asset_number"
+                                    value="" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="description">Description</label>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <input type="text" class="form-control" id="description"
+                                name="description"
+                                required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+      </form>
+    </div>
+</div>
 {% endblock %}

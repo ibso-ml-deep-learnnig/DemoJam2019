@@ -13,7 +13,7 @@
     <header>
         <div class="navbar navbar-dark bg-dark box-shadow">
             <div class="container d-flex justify-content-between">
-                <a href="/home" class="navbar-brand d-flex align-items-center">
+                <a href="/handlers/explore" class="navbar-brand d-flex align-items-center">
                     Asset Explorer
                 </a>
 
@@ -22,7 +22,7 @@
                     <div class="col"><h5 class="text-white">{{ g.user['user_name'] }}</h5></div>
                     <!-- <div class="col"><a href="{{ url_for('handlers.explore') }}" class="btn btn-primary btn-light" role="button">Explore</a></div> -->
                     <!-- <div class="col"><a href="{{ url_for('handlers.createAsset') }}" class="btn btn-primary btn-light" role="button">Create</a></div> -->
-                    <div class="col"><a href="{{ url_for('handlers.logout') }}" class="btn btn-info" role="button">Log Out &rarr;</a></div>
+                    <div class="col"><a href="{{ url_for('handlers.logout') }}" class="btn btn-primary btn-light" role="button">Log Out &rarr;</a></div>
 
                {% else %}
                  <a href="{{ url_for('handlers.login') }}" class="btn btn-primary btn-light" role="button">Login</a>
