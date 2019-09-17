@@ -1,0 +1,108 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: server
+          image: hme000/hme1:frontend_server
+          ports:
+          - name: http
+            containerPort: 5000
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /healthz
+              port: 5000
+              httpHeaders:
+              - name: "Cookie"
+                value: "shop_session-id=x-readiness-probe"
+          livenessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /healthz
+              port: 5000
+              httpHeaders:
+              - name: "Cookie"
+                value: "shop_session-id=x-liveness-probe"
+          env:
+          - name: PORT
+            value: "5000"
+          - name: ACCOUNT_SERVICE_ADDR
+            value: "account:50050"
+          - name: ASSET_CREATION_SERVICE_ADDR
+            value: "assetcreation:50051"
+          - name: ASSET_DISPLAY_SERVICE_ADDR
+            value: "assetdisplay:50053"
+#          resources:
+#            requests:
+#              cpu: 100m
+#              memory: 64Mi
+#            limits:
+#              cpu: 200m
+#              memory: 128Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: ClusterIP
+  selector:
+    app: frontend
+  ports:
+  - name: http
+    port: 1233
+    targetPort: 5000
+
+---
+# finally, define the ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  # annotations are part of the metadata object
+  # usually annotations are used to sent information to a controller
+  # here we instruct the ingress-controller to set the connect-timeout to 61s and rewrite the target to '/' for this specific host/URL
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "61"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+# define the routing rules for the ingress in its 'spec'
+spec:
+  rules:
+    # an ingress can have one to many hosts. A host is fully quallified URL
+    # TODO: replace in ingress host URL the <participantId>, <cluster-name> and <project-name> parameters of the training cluster
+    # e.g. '0007-simple-nginx.ingress.wdfcw48.k8s-train.shoot.canary.k8s-hana.ondemand.com'
+  - host: ibso-demojam-2019.ingress.gg1c2v856i.trail.shoot.canary.k8s-hana.ondemand.com
+    http:
+      paths:
+      # the ingress controller routes traffic to a service backend based on a <host>/<path> combination
+      # in this case traffic coming in to <host>/my-app will be routed to the service 'simple-nginx-service'
+      - path:
+        backend:
+          serviceName: frontend
+          servicePort: 1233

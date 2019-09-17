@@ -53,6 +53,30 @@ spec:
       name: www
     spec:
       accessModes: [ "ReadWriteOnce" ]
+#      storageClassName: default
       resources:
         requests:
           storage: 1Gi
+
+#---
+#kind: StorageClass
+#    apiVersion: storage.k8s.io/v1beta1
+#    metadata:
+#    name: alicloud-disk-ssd-hangzhou-b
+#    provisioner: alicloud/disk
+#    parameters:
+#    type: cloud_ssd
+#    regionid: cn-hangzhou
+#    zoneid: cn-hangzhou-b
+#    reclaimPolicy: Retain
+#---
+#apiVersion: storage.k8s.io/v1
+#kind: StorageClass
+#metadata:
+#  name: alicloud-disk-ssd-hangzhou-b
+#provisioner: alicloud/disk
+#parameters:
+#  type: pd-ssd
+#  regionid: cn-hangzhou
+#  zoneid: cn-hangzhou-b
+#  reclaimPolicy: Retain
