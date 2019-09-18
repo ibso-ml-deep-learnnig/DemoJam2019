@@ -52,6 +52,7 @@ def create_app(test_config=None):
 
     # apply the blueprints to the app
     import handlers as handlers
+
     app.register_blueprint(handlers.bp)
 
     # make url_for('index') == url_for('blog.index')
