@@ -28,12 +28,16 @@ function updateAsset2DB(value) {
 
 function callS4DisplayAssetAPI(value) {
     return new Promise((resolve, reject) => {
-        request('http://localhost:55021', (err, body, res) => {
-            // TODO: mock S4 API
+        request('https://jcodemoi333288trial.hanatrial.ondemand.com/jco_demo', (err, res, body) => {
+            console.log('inside diplay asset');
             if (err) reject(err);
-            console.log(typeof res);
-            resolve(res);
-        })
+            let bodyJSON = JSON.parse(body);
+            resolve({
+                company_code: bodyJSON.companyCode,
+                asset_number: bodyJSON.assetMainNumber,
+                description: undefined
+            })
+        });
     })
 }
 
