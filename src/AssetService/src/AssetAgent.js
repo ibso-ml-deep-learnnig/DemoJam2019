@@ -16,8 +16,11 @@ function callS4CreateAssetAPI(value) {
 
 function updateAsset2DB(value) {
     return new Promise((resolve, reject) => {
+        const dbEnv = process.env.DB_SERVER_ADDRESS;
+        const dbAddress = dbEnv ? dbEnv : 'localhost:50051';
+
         let assetDB = protoDescriptor.asset;
-        let client = new assetDB.DBapi('localhost:50051', grpc.credentials.createInsecure());
+        let client = new assetDB.DBapi(dbAddress, grpc.credentials.createInsecure());
         client.update({text: value}, (err, res) => {
             if (err) reject(err);
             console.log(typeof res);
