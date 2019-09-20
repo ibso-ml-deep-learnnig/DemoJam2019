@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="py-5">
+    <div class="container bg-light py-3 px-lg-5 py-lg-5">
+
+        <div class="row">
+            <div class="col-12 col-lg-5">
+                    <img class="img-fluid border" style="width: 100%;"
+                    src="{{asset.picture}}" />
+            </div>
+            <div class="col-12 col-lg-7">
+                    <h2>{{asset.number}}</h2>
+
+                    <p class="text-muted">
+                        {{asset.id}}
+                    </p>
+                    <hr/>
+                    <p>
+                        <h6>Asset Class:</h6>
+                        {{asset.description}}
+                    </p>
+                    <hr/>
+                    <p>
+                        <h6>Asset Description:</h6>
+                        {{asset.description}}
+                    </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -170,7 +170,7 @@ def explore():
             'id': 'add_new_asset',
             'number': '<New Asset>',
             'description': 'Add New...',
-            'picture': '../static/asset/add_new.png'
+            'picture': '../static/asset/add-new.jpg'
         },
         {
             'id': '1',
@@ -188,6 +188,20 @@ def explore():
 
 
     return render_template("page/list.html", assets=assets)
+
+@bp.route("/asset/<string:id>", methods=("GET", "POST"))
+@login_required
+def asset(id):
+    logger.info("request method:" + request.method)
+    logger.info("request param:" + id)
+    if request.method == "GET":
+        asset = {
+                'id': '1',
+                'number': 'a0001',
+                'description': 'air plants',
+                'picture': '../../static/asset/a0001.jpg'
+            }
+        return render_template("page/asset.html", asset=asset)
 
 @bp.route("/logout", methods=("GET", "POST"))
 def logout():
