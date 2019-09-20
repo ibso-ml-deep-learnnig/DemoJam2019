@@ -16,5 +16,6 @@ COPY  . .
 ENV PORT "50051"
 
 EXPOSE 50051
+EXPOSE DB_SERVER_ADDRESS "db-server:8001"
 
 CMD [ "node", "./src/front2asset-server.js" ]
