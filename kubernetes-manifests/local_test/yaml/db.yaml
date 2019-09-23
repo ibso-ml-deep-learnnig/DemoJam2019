@@ -1,0 +1,82 @@
+# declaration of a headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  ports:
+  - port: 3306
+    name: web
+  # by assigning the value 'None' to 'clusterIP' the service becomes "headless".
+  # a headless service has no separate cluster internal IP.
+  clusterIP: None
+  selector:
+    app: db
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  # link the statefulset to its headless service
+  serviceName: "db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  # the following section describes the pods that will be created.
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: hme000/hme1:db
+        args: ["--default-authentication-plugin=mysql_native_password"]
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: helloworld01
+        ports:
+        - containerPort: 3306
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /data
+  # statefulsets allow to specify required storage as a template
+  # a new PVC is created for each replica of the statefulset
+  # hence each replica has access to a dedicated & individual storage
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+#      storageClassName: default
+      resources:
+        requests:
+          storage: 1Gi
+
+#---
+#kind: StorageClass
+#    apiVersion: storage.k8s.io/v1beta1
+#    metadata:
+#    name: alicloud-disk-ssd-hangzhou-b
+#    provisioner: alicloud/disk
+#    parameters:
+#    type: cloud_ssd
+#    regionid: cn-hangzhou
+#    zoneid: cn-hangzhou-b
+#    reclaimPolicy: Retain
+#---
+#apiVersion: storage.k8s.io/v1
+#kind: StorageClass
+#metadata:
+#  name: alicloud-disk-ssd-hangzhou-b
+#provisioner: alicloud/disk
+#parameters:
+#  type: pd-ssd
+#  regionid: cn-hangzhou
+#  zoneid: cn-hangzhou-b
+#  reclaimPolicy: Retain
