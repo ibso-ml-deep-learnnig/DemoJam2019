@@ -31,8 +31,12 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: ibso-demojam-2019.ingress.assetexplo.trail.shoot.canary.k8s-hana.ondemand.com
-      paths: 
-      - /(.*)
+      http:
+        paths:
+      - path: /(.*)
+        backend:
+          serviceName: frontend
+          servicePort: 1233
 
   tls: []
   #  - secretName: chart-example-tls
