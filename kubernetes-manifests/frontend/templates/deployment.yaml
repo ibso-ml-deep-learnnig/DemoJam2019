@@ -1,0 +1,67 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "frontend.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "frontend.name" . }}
+    helm.sh/chart: {{ include "frontend.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.Frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "frontend.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "frontend.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.Frontend.containername }}
+          image: "{{ .Values.Frontend.image.repository }}:{{ .Values.Frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.Frontend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.Frontend.containerPort }}
+          livenessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /healthz
+              port: {{ .Values.Frontend.containerPort }}
+              httpHeaders:   
+              - name: "Cookie"
+                value: "session-id=x-readiness-probe"   
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /healthz
+              port: {{ .Values.Frontend.containerPort }}
+              httpHeaders:   
+              - name: "Cookie"
+                value: "session-id=x-readiness-probe"   
+          env:
+          - name: PORT
+            value: "5000"
+          - name: ACCOUNT_SERVICE_ADDR
+            value: "account:50050"
+          - name: ASSET_CREATION_SERVICE_ADDR
+            value: "assetcreation:50051"
+          - name: ASSET_DISPLAY_SERVICE_ADDR
+            value: "assetdisplay:50053"  
+
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

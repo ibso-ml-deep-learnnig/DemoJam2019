@@ -73,7 +73,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: frontend
+    app: frontendfrontend
   ports:
   - name: http
     port: 1233
