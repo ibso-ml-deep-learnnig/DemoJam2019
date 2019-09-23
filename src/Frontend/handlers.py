@@ -1,10 +1,7 @@
 from __future__ import print_function
 import functools
 import os
-import hashlib
 import shutil
-from PIL import Image
-from werkzeug.utils import secure_filename
 from flask import Blueprint
 from flask import flash
 from flask import g
@@ -13,7 +10,6 @@ from flask import render_template
 from flask import request
 from flask import session
 from flask import url_for
-import configparser as ConfigParser
 import grpc
 
 from genproto import account_pb2
@@ -22,9 +18,12 @@ from genproto import createAsset_pb2
 from genproto import createAsset_pb2_grpc
 
 from logger import getJSONLogger
+import util as util
 
+# Server log
 logger = getJSONLogger('frontend-server')
 
+# Blue Print
 bp = Blueprint("handlers", __name__, url_prefix="/handlers")
 
 def login_required(view):
@@ -43,7 +42,6 @@ def load_logged_in_user():
     """If a user id is stored in the session, load the user object from
     the database into ``g.user``."""
     user_id = session.get("user_id")
-
     if user_id is None:
         g.user = None
     else:
@@ -54,29 +52,28 @@ def load_logged_in_user():
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
+
   if request.method == "POST":
+
+    # Parameters
     user_id = request.form["user_id"]
     password = request.form["password"]
+
     error = None
-    print(user_id, password)
+
     if not user_id:
       error = "User ID is required."
     elif not password:
       error = "Password is required."
 
-    url = os.environ.get('ACCOUNT_SERVICE_ADDR')
-    if url == None:
-       config = ConfigParser.ConfigParser()
-       config.read('config.env')
-       url = config.get('WHITE_LIST', 'ACCOUNT_SERVICE_ADDR')
-
+    url = util.get_service_addr('ACCOUNT_SERVICE_ADDR')
     if url == '':
         error = 'The account service is not available now'
 
     if error is None:
+      logger.info("Account Service Address: " + url)
       with grpc.insecure_channel(url) as channel:
           stub = account_pb2_grpc.AccountServiceStub(channel)
-          print(url)
           response = stub.login(account_pb2.LoginRequest(user_id=user_id, password=password))
           if response.user_name == '':
               error = "User ID or Password is not correct"
@@ -101,8 +98,6 @@ def register():
     password = request.form["password"]
     password_confirm = request.form["password_confirm"]
     error = None
-    # host=os.environ.get()
-    # print (os.environ)
 
     if not user_id:
       error = "User ID is required."
@@ -140,64 +135,38 @@ def register():
 @login_required
 def createAsset():
   if request.method == "POST":
-      logger.info("Company Code: " + request.form["company_code"])
 
       error = None
-      url = os.environ.get('ASSET_CREATION_SERVICE_ADDR')
-      if url == None:
-          config = ConfigParser.ConfigParser()
-          config.read('config.env')
-          url = config.get('WHITE_LIST', 'ASSET_CREATION_SERVICE_ADDR')
 
+      url = util.get_service_addr('ASSET_CREATION_SERVICE_ADDR')
       if url == '':
-          error = 'The asset service is not available now'
-
-      base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-      logger.info("base path: " + base_dir)
+          error = 'The Asset Service is not available now'
 
       file = request.files["file"]
       if file:
-          img = Image.open(file)
-
-          basewidth = 1560
-          height_size = 1000
-
-          img = img.resize((basewidth, height_size), Image.ANTIALIAS)
-
-          filename = secure_filename(file.filename)
-          logger.info("filename: " + filename)
-          temp_abs_path = os.path.join(base_dir, "Frontend", "static", "asset", "temp", filename)
-          img.save(temp_abs_path)
-
-          md5_obj = hashlib.md5()
-          with open(temp_abs_path, 'rb') as file_obj:
-              md5_obj.update(file_obj.read())
-          digest = md5_obj.hexdigest()
-          prefix = str(digest)
-          suffix = filename.rsplit('.')[1]
-          md5_filename = prefix + '.' + suffix
-          md5_filename = secure_filename(md5_filename)
-          logger.info("filename: " + md5_filename)
-
-          md5_abs_path = os.path.join(base_dir, "Frontend", "static", "asset", "images", md5_filename)
-          logger.info("abs path: " + md5_abs_path)
-
-          shutil.move(temp_abs_path, md5_abs_path)
-
-
+          temp_path, images_path, filename = util.upload_image_with_md5_filename(file)
+          logger.info("temp path: " + temp_path)
+          logger.info("images path: " + images_path)
+      else:
+          error = 'No picture uploaded'
 
       if error is None:
           logger.info("asset service address: " + url)
-          with grpc.insecure_channel(url) as channel:
-              stub = createAsset_pb2_grpc.s4apiStub(channel)
-              response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
+          # with grpc.insecure_channel(url) as channel:
+          #     stub = createAsset_pb2_grpc.s4apiStub(channel)
+          #     response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
+          #
+          #     logger.info("response from asset service api log: " +response.api_log)
+          #     logger.info("response from asset service db log: " +response.db_log)
+          #     logger.info("response from asset service error: " +response.error)
 
-              logger.info("response from asset service api log: " +response.api_log)
-              logger.info("response from asset service db log: " +response.db_log)
-              logger.info("response from asset service error: " +response.error)
-
-      flash('Create successfully')
-      return redirect(url_for("handlers.asset", id='1'))
+      if error is None:
+          shutil.move(temp_path, images_path)
+          flash('Your asset is complete!')
+          return redirect(url_for("handlers.asset", id='1'))
+      else:
+          flash(error)
+          return redirect(url_for("handlers.createAsset"))
 
   return render_template("page/CreateAsset.html")
 

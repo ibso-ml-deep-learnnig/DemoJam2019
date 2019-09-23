@@ -1,6 +1,6 @@
 import os
 import configparser as ConfigParser
-
+import handlers as handlers
 from flask import Flask
 from flask import render_template
 from flask import jsonify
@@ -12,9 +12,6 @@ def check_service():
         url = os.environ.get(addr)
         if url==None:
             url = config.get('WHITE_LIST', addr)
-
-        print(url)
-
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -50,9 +47,6 @@ def create_app(test_config=None):
         resp.status_code = 200
         return resp
 
-    # apply the blueprints to the app
-    import handlers as handlers
-
     app.register_blueprint(handlers.bp)
 
     # make url_for('index') == url_for('blog.index')
@@ -61,6 +55,7 @@ def create_app(test_config=None):
     # the tutorial the blog will be the main index
     app.add_url_rule("/", endpoint="home")
 
+    # check address of services
     check_service()
 
     return app
