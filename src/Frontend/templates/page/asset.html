@@ -3,7 +3,13 @@
 {% block content %}
 <div class="py-5">
     <div class="container bg-light py-3 px-lg-5 py-lg-5">
-
+        <div class="row mb-3 py-2">
+        {% for message in get_flashed_messages() %}
+          <div class="col">
+            <h6> {{ message }}</h6>
+          </div>
+        {% endfor %}
+        </div>
         <div class="row">
             <div class="col-12 col-lg-5">
                     <img class="img-fluid border" style="width: 100%;"

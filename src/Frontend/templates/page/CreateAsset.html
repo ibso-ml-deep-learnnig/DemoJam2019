@@ -17,7 +17,7 @@ function readURL(input) {
 <div class="py-5">
     <div class="container bg-light py-3 px-lg-5 py-lg-5">
 
-      <form method="POST">
+      <form method="POST" enctype="multipart/form-data">
 
             <div class="row mb-3 py-2">
             {% for message in get_flashed_messages() %}
@@ -77,10 +77,10 @@ function readURL(input) {
 
                     <div class="form-row">
                         <div class="col-md-3 mb-3">
-                            <label for="picture">Picture</label>
+                            Picture
                         </div>
                         <div class="col-md-5 mb-3">
-                          <input type="file" id="picture" name="picture" accept="image/*" onchange="readURL(this);" required/>
+                          <input type="file" name="file" accept="image/*" onchange="readURL(this);" required/>
 
                         </div>
                         <div class="col-md-4 mb-3">

@@ -1,6 +1,10 @@
 from __future__ import print_function
 import functools
 import os
+import hashlib
+import shutil
+from PIL import Image
+from werkzeug.utils import secure_filename
 from flask import Blueprint
 from flask import flash
 from flask import g
@@ -136,6 +140,8 @@ def register():
 @login_required
 def createAsset():
   if request.method == "POST":
+      logger.info("Company Code: " + request.form["company_code"])
+
       error = None
       url = os.environ.get('ASSET_CREATION_SERVICE_ADDR')
       if url == None:
@@ -145,6 +151,40 @@ def createAsset():
 
       if url == '':
           error = 'The asset service is not available now'
+
+      base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+      logger.info("base path: " + base_dir)
+
+      file = request.files["file"]
+      if file:
+          img = Image.open(file)
+
+          basewidth = 1560
+          height_size = 1000
+
+          img = img.resize((basewidth, height_size), Image.ANTIALIAS)
+
+          filename = secure_filename(file.filename)
+          logger.info("filename: " + filename)
+          temp_abs_path = os.path.join(base_dir, "Frontend", "static", "asset", "temp", filename)
+          img.save(temp_abs_path)
+
+          md5_obj = hashlib.md5()
+          with open(temp_abs_path, 'rb') as file_obj:
+              md5_obj.update(file_obj.read())
+          digest = md5_obj.hexdigest()
+          prefix = str(digest)
+          suffix = filename.rsplit('.')[1]
+          md5_filename = prefix + '.' + suffix
+          md5_filename = secure_filename(md5_filename)
+          logger.info("filename: " + md5_filename)
+
+          md5_abs_path = os.path.join(base_dir, "Frontend", "static", "asset", "images", md5_filename)
+          logger.info("abs path: " + md5_abs_path)
+
+          shutil.move(temp_abs_path, md5_abs_path)
+
+
 
       if error is None:
           logger.info("asset service address: " + url)
@@ -157,7 +197,7 @@ def createAsset():
               logger.info("response from asset service error: " +response.error)
 
       flash('Create successfully')
-      return redirect(url_for("handlers.createAsset"))
+      return redirect(url_for("handlers.asset", id='1'))
 
   return render_template("page/CreateAsset.html")
 
