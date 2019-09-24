@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: hme000/hme1:frontend_server
+          image: hme000/hme1:frontend
           ports:
           - name: http
             containerPort: 5000
@@ -71,38 +71,10 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
-    app: frontendfrontend
+    app: frontend
   ports:
   - name: http
     port: 1233
     targetPort: 5000
-
----
-# finally, define the ingress
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: frontend-ingress
-  # annotations are part of the metadata object
-  # usually annotations are used to sent information to a controller
-  # here we instruct the ingress-controller to set the connect-timeout to 61s and rewrite the target to '/' for this specific host/URL
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "61"
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-# define the routing rules for the ingress in its 'spec'
-spec:
-  rules:
-    # an ingress can have one to many hosts. A host is fully quallified URL
-    # TODO: replace in ingress host URL the <participantId>, <cluster-name> and <project-name> parameters of the training cluster
-    # e.g. '0007-simple-nginx.ingress.wdfcw48.k8s-train.shoot.canary.k8s-hana.ondemand.com'
-  - host: ibso-demojam-2019.ingress.gg1c2v856i.trail.shoot.canary.k8s-hana.ondemand.com
-    http:
-      paths:
-      # the ingress controller routes traffic to a service backend based on a <host>/<path> combination
-      # in this case traffic coming in to <host>/my-app will be routed to the service 'simple-nginx-service'
-      - path: /(.*)
-        backend:
-          serviceName: frontend
-          servicePort: 1233

@@ -12,7 +12,7 @@ Frontend:
   containerPort: 5000
   image:
     repository: hme000/hme1
-    tag: frontend_server
+    tag: frontend
     pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -30,9 +30,13 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: test.ingress.gg1c2v856i.trail.shoot.canary.k8s-hana.ondemand.com
-      paths: 
-      - /(.*)
+    - host: ibso-demojam-2019.ingress.assetexplo.trail.shoot.canary.k8s-hana.ondemand.com
+      http:
+        paths:
+      - path: /(.*)
+        backend:
+          serviceName: frontend
+          servicePort: 1233
 
   tls: []
   #  - secretName: chart-example-tls

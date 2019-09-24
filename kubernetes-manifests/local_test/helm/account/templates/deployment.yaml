@@ -1,0 +1,55 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "account.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "account.name" . }}
+    helm.sh/chart: {{ include "account.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.Account.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "account.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "account.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.Account.containername }}
+          image: "{{ .Values.Account.image.repository }}:{{ .Values.Account.image.tag }}"
+          imagePullPolicy: {{ .Values.Account.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.Account.containerPort }}
+          readinessProbe:
+            initialDelaySeconds: 10
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:50050"]
+          livenessProbe:
+            initialDelaySeconds: 10
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:50050"]
+          env:
+          - name: PORT
+            value: "50050"
+          - name: DB_SERVER_SERVICE_ADDR
+            value: "db-server:8001"
+
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

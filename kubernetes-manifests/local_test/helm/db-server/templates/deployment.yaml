@@ -1,0 +1,53 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "db-server.fullname" . }}
+  labels:
+{{ include "db-server.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.DB.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "db-server.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "db-server.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Values.DB.containername }}
+          image: "{{ .Values.DB.image.repository }}:{{ .Values.DB.image.tag }}"
+          imagePullPolicy: {{ .Values.DB.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.DB.containerPort }}
+          readinessProbe:
+            initialDelaySeconds: 10
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8001"]
+          livenessProbe:
+            initialDelaySeconds: 10
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8001"]
+          env:
+          - name: PORT
+            value: "8001"
+          - name: DB_ADDR
+            value: "db"
+          - name: DB_PORT
+            value: "3306"
+
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

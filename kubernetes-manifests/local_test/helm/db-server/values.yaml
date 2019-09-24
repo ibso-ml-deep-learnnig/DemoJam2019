@@ -1,0 +1,38 @@
+# Default values for db-server.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+DB:
+  name: db-server
+  app: db-server
+  replicaCount: 1
+  containername: server
+  containerPort: 8001
+  image:
+    repository: hme000/hme1
+    tag: db_server
+    pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  name: db-server
+  type: ClusterIP
+  port: 8001
+  targetport: 8001
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
