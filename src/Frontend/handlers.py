@@ -152,13 +152,13 @@ def createAsset():
 
       if error is None:
           logger.info("asset service address: " + url)
-          # with grpc.insecure_channel(url) as channel:
-          #     stub = createAsset_pb2_grpc.s4apiStub(channel)
-          #     response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
-          #
-          #     logger.info("response from asset service api log: " +response.api_log)
-          #     logger.info("response from asset service db log: " +response.db_log)
-          #     logger.info("response from asset service error: " +response.error)
+          with grpc.insecure_channel(url) as channel:
+              stub = createAsset_pb2_grpc.s4apiStub(channel)
+              response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
+
+              logger.info("response from asset service api log: " +response.api_log)
+              logger.info("response from asset service db log: " +response.db_log)
+              logger.info("response from asset service error: " +response.error)
 
       if error is None:
           shutil.move(temp_path, images_path)
