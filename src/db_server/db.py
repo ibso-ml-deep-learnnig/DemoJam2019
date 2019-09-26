@@ -129,7 +129,7 @@ def insertAsset(conn, asset):
 
         insert_asset = (
             "INSERT INTO asset "
-            "(asset_id, asset_class, description, picture, company_code, asset_number, asset_subno, cost_center, acquisition_date, amount, ul_year, ul_period, user_id, create_date, create_time)"
+            "(asset_id, asset_class, description, picture, company_coe, asset_number, asset_subno, cost_center, acquisiton_date, amount, ul_year, ul_period, user_id, create_date, create_time)"
             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
         cursor.execute(insert_asset, asset)
