@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+from logger import getJSONLogger
 
 def get_connection(url, port):
   config = {
@@ -62,48 +63,64 @@ def create_user(conn, user_id, user_name, password):
 
 def selectAssetById(conn, asset_id):
 
-    list =list()
+    logger = getJSONLogger('account-server')
+    logger.info("select asset by id: " +asset_id)
+
+    asset = None
 
     try:
       cursor = conn.cursor(buffered=True)
 
       query = ("SELECT * FROM asset where asset_id = %s")
 
-      list = cursor.execute(query, (asset_id)).fetchone()
+      count = cursor.execute(query, (asset_id))
+      if count != 0:
+          asset = cursor.fetchone()
 
     except Error as error:
         print("Failed to select asset from table {}".format(error))
+        logger.info("Failed to select asset from table {}".format(error))
 
     finally:
         if (conn.is_connected()):
           cursor.close()
 
-    return list
+    return asset
 
 def selectAssets(conn, user_id):
 
-    list = list()
+    logger = getJSONLogger('account-server')
+    logger.info("select assets by id: " +user_id)
+
+    assetList = None
 
     try:
-      cursor = conn.cursor(buffered=True)
+        cursor = conn.cursor(buffered=True)
 
-      if user_id == 'admin':
-          query = ("SELECT * FROM asset")
-          list = cursor.execute(query).fetchall()
-      else:
-          query = ("SELECT * FROM asset where user_id = %s")
-          list = cursor.execute(query, (user_id)).fetchall()
+        if user_id == 'admin':
+            query = ("SELECT * FROM asset")
+            count = cursor.execute(query)
+        else:
+            query = ("SELECT * FROM asset where user_id = %s")
+            count = cursor.execute(query, [user_id])
+
+        if count != 0:
+            assetList = cursor.fetchall()
 
     except Error as error:
+        logger.info("Failed to select asset from table {}".format(error))
         print("Failed to select asset from table {}".format(error))
 
     finally:
         if (conn.is_connected()):
           cursor.close()
 
-    return list
+    return assetList
 
 def insertAsset(conn, asset):
+
+    logger = getJSONLogger('account-server')
+    logger.info("insert asset " +str(asset))
 
     e = False
 
@@ -121,12 +138,12 @@ def insertAsset(conn, asset):
 
     except Error as error:
         conn.rollback()
+        logger.info("FFailed to insert asset into table {}".format(error))
         print("Failed to insert asset into table {}".format(error))
         e = True
 
     finally:
         if (conn.is_connected()):
             cursor.close()
-
 
     return e
