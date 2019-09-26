@@ -29,6 +29,21 @@ class DBServiceStub(object):
         request_serializer=db__pb2.api_log_db.SerializeToString,
         response_deserializer=db__pb2.db_log_db.FromString,
         )
+    self.selectAssetById = channel.unary_unary(
+        '/demojam2019.DBService/selectAssetById',
+        request_serializer=db__pb2.AssetId.SerializeToString,
+        response_deserializer=db__pb2.Asset.FromString,
+        )
+    self.selectAssetAll = channel.unary_unary(
+        '/demojam2019.DBService/selectAssetAll',
+        request_serializer=db__pb2.ListAssetsRequest.SerializeToString,
+        response_deserializer=db__pb2.ListAssetsResponse.FromString,
+        )
+    self.insertAsset = channel.unary_unary(
+        '/demojam2019.DBService/insertAsset',
+        request_serializer=db__pb2.NewAssetRequest.SerializeToString,
+        response_deserializer=db__pb2.NewAssetResponse.FromString,
+        )
 
 
 class DBServiceServicer(object):
@@ -56,6 +71,27 @@ class DBServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def selectAssetById(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def selectAssetAll(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def insertAsset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_DBServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -73,6 +109,21 @@ def add_DBServiceServicer_to_server(servicer, server):
           servicer.addlog_db,
           request_deserializer=db__pb2.api_log_db.FromString,
           response_serializer=db__pb2.db_log_db.SerializeToString,
+      ),
+      'selectAssetById': grpc.unary_unary_rpc_method_handler(
+          servicer.selectAssetById,
+          request_deserializer=db__pb2.AssetId.FromString,
+          response_serializer=db__pb2.Asset.SerializeToString,
+      ),
+      'selectAssetAll': grpc.unary_unary_rpc_method_handler(
+          servicer.selectAssetAll,
+          request_deserializer=db__pb2.ListAssetsRequest.FromString,
+          response_serializer=db__pb2.ListAssetsResponse.SerializeToString,
+      ),
+      'insertAsset': grpc.unary_unary_rpc_method_handler(
+          servicer.insertAsset,
+          request_deserializer=db__pb2.NewAssetRequest.FromString,
+          response_serializer=db__pb2.NewAssetResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

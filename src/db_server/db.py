@@ -1,6 +1,5 @@
 import mysql.connector
-
-
+from mysql.connector import Error
 
 def get_connection(url, port):
   config = {
@@ -24,7 +23,6 @@ def select_user_by_user_id(conn, id, password):
     name = ''
     for (user_id, user_name) in cursor:
         name = user_name
-
 
     cursor.close()
 
@@ -62,6 +60,73 @@ def create_user(conn, user_id, user_name, password):
     conn.commit()
     cursor.close()
 
+def selectAssetById(conn, asset_id):
+
+    list =list()
+
+    try:
+      cursor = conn.cursor(buffered=True)
+
+      query = ("SELECT * FROM asset where asset_id = %s")
+
+      list = cursor.execute(query, (asset_id)).fetchone()
+
+    except Error as error:
+        print("Failed to select asset from table {}".format(error))
+
+    finally:
+        if (conn.is_connected()):
+          cursor.close()
+
+    return list
+
+def selectAssets(conn, user_id):
+
+    list = list()
+
+    try:
+      cursor = conn.cursor(buffered=True)
+
+      if user_id == 'admin':
+          query = ("SELECT * FROM asset")
+          list = cursor.execute(query).fetchall()
+      else:
+          query = ("SELECT * FROM asset where user_id = %s")
+          list = cursor.execute(query, (user_id)).fetchall()
+
+    except Error as error:
+        print("Failed to select asset from table {}".format(error))
+
+    finally:
+        if (conn.is_connected()):
+          cursor.close()
+
+    return list
+
+def insertAsset(conn, asset):
+
+    error = False
+
+    try:
+        cursor = conn.cursor(buffered=True)
+
+        insert_asset = (
+            "INSERT INTO asset "
+            "(asset_id, asset_class, description, picture, company_code, asset_number, asset_subno, cost_center, acquisition_date, amount, ul_year, ul_period, user_id, create_date, create_time)"
+            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+
+        cursor.execute(insert_asset, asset)
+
+        conn.commit()
+
+    except Error as error:
+        conn.rollback()
+        print("Failed to insert asset into table {}".format(error))
+        error = True
+
+    finally:
+        if (conn.is_connected()):
+            cursor.close()
 
 
-
+    return error

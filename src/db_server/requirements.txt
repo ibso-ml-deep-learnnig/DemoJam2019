@@ -17,7 +17,6 @@ google-python-cloud-debugger==2.9
 googleapis-common-protos==1.5.6  # via google-api-core
 grpcio-health-checking==1.13.0
 grpcio==1.22.0
-flask==1.1.1              #Flask app
 jinja2==2.10.1
 httplib2==0.12.0          # via google-api-python-client, google-auth-httplib2
 idna==2.8                 # via requests
