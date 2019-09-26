@@ -105,7 +105,7 @@ def selectAssets(conn, user_id):
 
 def insertAsset(conn, asset):
 
-    error = False
+    e = False
 
     try:
         cursor = conn.cursor(buffered=True)
@@ -122,11 +122,11 @@ def insertAsset(conn, asset):
     except Error as error:
         conn.rollback()
         print("Failed to insert asset into table {}".format(error))
-        error = True
+        e = True
 
     finally:
         if (conn.is_connected()):
             cursor.close()
 
 
-    return error
+    return e
