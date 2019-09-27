@@ -160,9 +160,9 @@ def fill_asset_response(assetResponse, asset):
     assetResponse.asset_subno = asset[6]
     assetResponse.cost_center = asset[7]
     encode_date(assetResponse.acquisition_date, str(asset[8]))
-    assetResponse.amount = asset[9]
-    assetResponse.ul_year = asset[10]
-    assetResponse.ul_period = asset[11]
+    assetResponse.amount = float(asset[9])
+    assetResponse.ul_year = int(asset[10])
+    assetResponse.ul_period = int(asset[11])
     assetResponse.user_id = asset[12]
     encode_date(assetResponse.create_date, str(asset[13]))
     encode_time(assetResponse.create_time, str(asset[14]))
@@ -194,14 +194,14 @@ def decode_date(dateRequest):
     return date(dateRequest.year, dateRequest.month, dateRequest.day).strftime("%Y%m%d")
 
 def encode_date(dateResponse, date):
-    dateResponse.year = int(date[:4])
-    dateResponse.month = int(date[4:6])
-    dateResponse.day = int(date[6:])
+    dateResponse.year = int(date.split('-')[0])
+    dateResponse.month = int(date.split('-')[1])
+    dateResponse.day = int(date.split(2))
 
 def encode_time(timeResponse, time):
-    timeResponse.hour = int(time[:2])
-    timeResponse.minute = int(time[2:4])
-    timeResponse.second = int(time[4:])
+    timeResponse.hour = int(time.split(':')[0])
+    timeResponse.minute = int(time.split(':')[1])
+    timeResponse.second = int(time.split(':')[2])
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

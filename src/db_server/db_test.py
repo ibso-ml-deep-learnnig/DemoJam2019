@@ -2,8 +2,9 @@ import os
 import grpc
 from genproto import db_pb2
 from genproto import db_pb2_grpc
+from datetime import datetime, date
 
-url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'db_server:8001')
+url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'localhost:8001')
 
 with grpc.insecure_channel(url) as channel:
     stub = db_pb2_grpc.DBServiceStub(channel)
