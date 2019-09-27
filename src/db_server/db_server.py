@@ -57,7 +57,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
 
             conn = db.get_connection(url, port)
             asset = db.selectAssetById(conn, asset_id=request.asset_id)
-            if len(asset) == 0:
+            if asset is None:
                 print("no asset data")
             else:
               fill_asset_response(response, asset[0])
