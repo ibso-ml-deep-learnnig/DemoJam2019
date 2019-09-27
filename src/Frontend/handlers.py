@@ -16,6 +16,8 @@ from genproto import account_pb2
 from genproto import account_pb2_grpc
 from genproto import createAsset_pb2
 from genproto import createAsset_pb2_grpc
+from genproto import db_pb2
+from genproto import db_pb2_grpc
 
 from logger import getJSONLogger
 import util as util
@@ -174,27 +176,54 @@ def createAsset():
 @bp.route("/explore", methods=("GET", "POST"))
 @login_required
 def explore():
+
     assets = [
         {
-            'id': 'add_new_asset',
-            'number': '<New Asset>',
-            'description': 'Add New...',
-            'picture': '../static/asset/add-new.jpg'
-        },
-        {
-            'id': '1',
-            'number': 'a0001',
-            'description': 'air plants',
-            'picture': '../static/asset/a0001.jpg'
-        },
-        {
-            'id': '2',
-            'number': 'a0002',
-            'description': 'Vintage Camera Lens',
-            'picture': '../static/asset/a0002.jpg'
+            'asset_id': 'add_new_asset',
+            'asset_class': '',
+            'description': 'Add New ...',
+            'picture':  '../static/asset/add-new.jpg',
+            'company_code': 'A001',
+            'asset_number': '<New Asset>',
+            'asset_subno': '',
+            'cost_center': '',
+            'acquisition_date': '',
+            'amount': '',
+            'ul_year': '',
+            'ul_period': '',
+            'user_id': '',
+            'create_date': '',
+            'create_time':''
         }
     ]
+    url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'localhost:8001')
+    with grpc.insecure_channel(url) as channel:
+        stub = db_pb2_grpc.DBServiceStub(channel)
+        assetList = stub.selectAssetAll(db_pb2.ListAssetsRequest(user_id=session["user_id"]))
 
+        for asset in assetList:
+            assets.append(asset)
+
+    # assets = [
+    #     {
+    #         'id': 'add_new_asset',
+    #         'number': '<New Asset>',
+    #         'description': 'Add New...',
+    #         'picture': '../static/asset/add-new.jpg'
+    #     },
+    #     {
+    #         'id': '1',
+    #         'number': 'a0001',
+    #         'description': 'air plants',
+    #         'picture': '../static/asset/a0001.jpg'
+    #     },
+    #     {
+    #         'id': '2',
+    #         'number': 'a0002',
+    #         'description': 'Vintage Camera Lens',
+    #         'picture': '../static/asset/a0002.jpg'
+    #     }
+    # ]
 
     return render_template("page/list.html", assets=assets)
 
