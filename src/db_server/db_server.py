@@ -153,7 +153,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
 def fill_asset_response(assetResponse, asset):
 
     # fill the asset Result to gRPC response
-    assetResponse.asset_id = asset[0]
+    assetResponse.asset_id = asset[0].decode('utf-8')
     assetResponse.asset_class = asset[1]
     assetResponse.description = asset[2]
     assetResponse.picture = asset[3]
