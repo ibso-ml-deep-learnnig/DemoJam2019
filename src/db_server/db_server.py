@@ -196,7 +196,7 @@ def decode_date(dateRequest):
 def encode_date(dateResponse, date):
     dateResponse.year = int(date.split('-')[0])
     dateResponse.month = int(date.split('-')[1])
-    dateResponse.day = int(date.split(2))
+    dateResponse.day = int(date.split('-')[2])
 
 def encode_time(timeResponse, time):
     timeResponse.hour = int(time.split(':')[0])
