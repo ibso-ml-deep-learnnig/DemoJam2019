@@ -60,7 +60,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
             if asset is None:
                 print("no asset data")
             else:
-              fill_asset_response(response, asset[0])
+              fill_asset_response(response, asset)
 
         except Error as error:
             print("Failed to select asset from table {}".format(error))
