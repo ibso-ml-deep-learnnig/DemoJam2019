@@ -21,14 +21,14 @@
         {% for asset in assets %}
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
-                {% if asset.id == 'add_new_asset' %}
+                {% if asset.asset_id == 'add_new_asset' %}
                 <a href="/handlers/CreateAsset">
                     <img class="card-img-top" alt =""
                         style="width: 100%; height: auto;"
                         src="{{asset.picture}}">
                 </a>
                 {% else %}
-                <a href="/handlers/asset/{{asset.id}}">
+                <a href="/handlers/asset/{{asset.asset_id}}">
                     <img class="card-img-top" alt =""
                         style="width: 100%; height: auto;"
                         src="{{asset.picture}}">
@@ -38,7 +38,7 @@
                     <h5 class="card-title">
                         {{ asset.description }}
                     </h5>
-                    {% if asset.id == 'add_new_asset' %}
+                    {% if asset.asset_id == 'add_new_asset' %}
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <a href="/handlers/CreateAsset">
@@ -46,19 +46,19 @@
                             </a>
                         </div>
                         <small class="text-muted">
-                            {{ asset.number }}
+                            {{ asset.asset_number }}
                         </strong>
                         </small>
                     </div>
                     {% else %}
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="/handlers/asset/{{asset.id}}">
+                            <a href="/handlers/asset/{{asset.asset_id}}">
                                 <button type="button" class="btn btn-sm btn-outline-secondary">Detail</button>
                             </a>
                         </div>
                         <small class="text-muted">
-                            {{ asset.number }}
+                            {{ asset.asset_number }}
                         </strong>
                         </small>
                     </div>
