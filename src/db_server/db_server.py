@@ -45,7 +45,6 @@ class DBService(db_pb2_grpc.DBServiceServicer):
         print('start select asset by id :' + request.asset_id)
 
         response = db_pb2.Asset()
-        asset = []
 
         # Test Data
         # asset = ['1', '3100', 'this is asset', '/path/', 'A001', '6001', '0', 'cc', '20190831', 1000.1, 10, 12, 'i333463', '20190925', '153020']
@@ -58,7 +57,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
 
             conn = db.get_connection(url, port)
             asset = db.selectAssetById(conn, asset_id=request.asset_id)
-            if asset == []:
+            if len(asset) == 0:
                 print("no asset data")
             else:
               fill_asset_response(response, asset[0])
@@ -100,8 +99,11 @@ class DBService(db_pb2_grpc.DBServiceServicer):
             conn = db.get_connection(url, port)
 
             assets = db.selectAssets(conn, user_id=request.user_id)
-            for asset in assets:
-                fill_asset_response(response.asset.add(), asset)
+            if len(assets) == 0:
+                print('no assets data')
+            else:
+                for asset in assets:
+                    fill_asset_response(response.asset.add(), asset)
 
         except Error as error:
             print("Failed to select assets from table {}".format(error))
@@ -151,7 +153,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
 def fill_asset_response(assetResponse, asset):
 
     # fill the asset Result to gRPC response
-    assetResponse.asset_id = str(uuid.uuid1())
+    assetResponse.asset_id = str(asset[0])
     assetResponse.asset_class = asset[1]
     assetResponse.description = asset[2]
     assetResponse.picture = asset[3]

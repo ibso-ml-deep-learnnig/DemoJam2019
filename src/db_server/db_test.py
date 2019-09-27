@@ -27,19 +27,15 @@ with grpc.insecure_channel(url) as channel:
     }
     newAssetRequest = db_pb2.NewAssetRequest(asset=newAsset)
     newAssetResponse = stub.insertAsset(newAssetRequest)
+    print(str(newAssetResponse))
 
     # select all assets
     assets = stub.selectAssetAll(db_pb2.ListAssetsRequest(user_id='i333463'))
-
+    print(str(assets))
 
     for asset in assets.asset:
         # select asset by ID
         a = stub.selectAssetById(db_pb2.AssetId(asset_id=asset.asset_id))
+        print(str(a))
 
-print(str(newAssetResponse))
 
-print(str(len(assets.asset)))
-for asset in assets.asset:
-  print(str(asset))
-
-print(str(a))

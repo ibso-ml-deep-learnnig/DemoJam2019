@@ -73,7 +73,7 @@ def selectAssetById(conn, asset_id):
 
       query = ("SELECT * FROM asset where asset_id = %s")
 
-      count = cursor.execute(query, (asset_id))
+      count = cursor.execute(query, [asset_id])
       if count != 0:
           asset = cursor.fetchone()
 
