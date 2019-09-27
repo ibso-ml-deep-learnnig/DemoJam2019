@@ -201,7 +201,7 @@ def explore():
         stub = db_pb2_grpc.DBServiceStub(channel)
         assetList = stub.selectAssetAll(db_pb2.ListAssetsRequest(user_id=session["user_id"]))
 
-        for asset in assetList:
+        for asset in assetList.asset:
             assets.append(asset)
 
     # assets = [
