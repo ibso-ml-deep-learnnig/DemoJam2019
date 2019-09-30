@@ -140,9 +140,9 @@ def createAsset():
 
       error = None
 
-      url = util.get_service_addr('ASSET_CREATION_SERVICE_ADDR')
-      if url == '':
-          error = 'The Asset Service is not available now'
+      # url = util.get_service_addr('ASSET_CREATION_SERVICE_ADDR')
+      # if url == '':
+      #     error = 'The Asset Service is not available now'
 
       file = request.files["file"]
       if file:
@@ -152,15 +152,38 @@ def createAsset():
       else:
           error = 'No picture uploaded'
 
+      newAsset = {
+          'asset_id': '',
+          'asset_class': request.form["asset_class"],
+          'description': request.form["description"],
+          'picture': filename,
+          'company_code': request.form["company_code"],
+          'asset_number': '9001',
+          'asset_subno': '0000',
+          'cost_center': request.form["cost_center"],
+          'acquisition_date': {'year': 2019, 'month': 8, 'day': 31},
+          'amount': float(request.form["amount"]),
+          'ul_year': int(request.form["ul_year"]),
+          'ul_period': int(request.form["ul_period"]),
+          'user_id': session["user_id"]
+      }
+
+      url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'localhost:8001')
       if error is None:
           logger.info("asset service address: " + url)
-          with grpc.insecure_channel(url) as channel:
-              stub = createAsset_pb2_grpc.s4apiStub(channel)
-              response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
 
-              logger.info("response from asset service api log: " +response.api_log)
-              logger.info("response from asset service db log: " +response.db_log)
-              logger.info("response from asset service error: " +response.error)
+          with grpc.insecure_channel(url) as channel:
+              stub = db_pb2_grpc.DBServiceStub(channel)
+              newAssetResponse = stub.insertAsset(db_pb2.NewAssetRequest(asset=newAsset))
+              if newAssetResponse.error is True:
+                  error  = 'Asset has error'
+
+              # stub = createAsset_pb2_grpc.s4apiStub(channel)
+              # response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
+              #
+              # logger.info("response from asset service api log: " +response.api_log)
+              # logger.info("response from asset service db log: " +response.db_log)
+              # logger.info("response from asset service error: " +response.error)
 
       if error is None:
           shutil.move(temp_path, images_path)
