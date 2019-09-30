@@ -153,7 +153,7 @@ def createAsset():
           error = 'No picture uploaded'
 
       newAsset = {
-          'asset_id': '',
+          'asset_id': '<New>',
           'asset_class': request.form["asset_class"],
           'description': request.form["description"],
           'picture': filename,
@@ -163,10 +163,12 @@ def createAsset():
           'cost_center': request.form["cost_center"],
           'acquisition_date': {'year': 2019, 'month': 8, 'day': 31},
           'amount': float(request.form["amount"]),
-          'ul_year': int(request.form["ul_year"]),
-          'ul_period': int(request.form["ul_period"]),
+          'ul_year': int(request.form["useful_life_y"]),
+          'ul_period': int(request.form["useful_life_m"]),
           'user_id': session["user_id"]
       }
+
+      logger.info("request: " + str(newAsset))
 
       url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'localhost:8001')
       if error is None:
