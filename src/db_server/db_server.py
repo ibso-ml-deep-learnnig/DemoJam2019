@@ -119,6 +119,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
     def insertAsset(self, request, context):
         print('start insert an asset')
 
+        newAsset = fill_new_asset(request.asset)
         response = db_pb2.NewAssetResponse()
 
 #       Test Data
@@ -131,7 +132,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
             port = os.environ.get('DB_PORT', '3306')
             conn = db.get_connection(url, port)
 
-            response.error = db.insertAsset(conn, fill_new_asset(request.asset))
+            response.error = db.insertAsset(conn, newAsset)
 
         except Error as error:
             response.error = True
@@ -144,6 +145,7 @@ class DBService(db_pb2_grpc.DBServiceServicer):
                 conn.close()
 
         if response.error is False:
+            response.asset_id = newAsset[0]
             response.log = 'New asset was created successfully!'
         else:
             response.log = 'Failed to insert asset to table'
