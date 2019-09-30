@@ -10,21 +10,22 @@
           </div>
         {% endfor %}
         </div>
+        {% if asset %}
         <div class="row">
             <div class="col-12 col-lg-5">
                     <img class="img-fluid border" style="width: 100%;"
-                    src="{{asset.picture}}" />
+                    src="../static/asset/images/{{asset.picture}}" />
             </div>
             <div class="col-12 col-lg-7">
-                    <h2>{{asset.number}}</h2>
+                    <h2>{{asset.asset_id}}</h2>
 
                     <p class="text-muted">
-                        {{asset.id}}
+                        {{asset.asset_number}}
                     </p>
                     <hr/>
                     <p>
                         <h6>Asset Class:</h6>
-                        {{asset.description}}
+                        {{asset.asset_class}}
                     </p>
                     <hr/>
                     <p>
@@ -33,6 +34,7 @@
                     </p>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

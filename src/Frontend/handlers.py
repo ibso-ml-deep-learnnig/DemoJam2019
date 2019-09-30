@@ -233,12 +233,23 @@ def asset(id):
     logger.info("request method:" + request.method)
     logger.info("request param:" + id)
     if request.method == "GET":
-        asset = {
-                'id': '1',
-                'number': 'a0001',
-                'description': 'air plants',
-                'picture': '../../static/asset/a0001.jpg'
-            }
+        # asset = {
+        #         'id': '1',
+        #         'number': 'a0001',
+        #         'description': 'air plants',
+        #         'picture': '../../static/asset/images/a0001.jpg'
+        #     }
+
+        asset = None
+
+        url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'localhost:8001')
+        with grpc.insecure_channel(url) as channel:
+            stub = db_pb2_grpc.DBServiceStub(channel)
+            asset = stub.selectAssetById(db_pb2.AssetId(asset_id=id))
+
+        if asset is None:
+            flash('No Asset Found!')
+
         return render_template("page/asset.html", asset=asset)
 
 @bp.route("/logout", methods=("GET", "POST"))
