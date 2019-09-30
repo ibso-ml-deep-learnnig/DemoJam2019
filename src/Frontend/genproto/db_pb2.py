@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='demojam2019',
   syntax='proto3',
   serialized_options=_b('\n\033io.grpc.examples.helloworldB\017HelloWorldProtoP\001\242\002\003HLW'),
-  serialized_pb=_b('\n\x08\x64\x62.proto\x12\x0b\x64\x65mojam2019\"p\n\x12RegisterRequest_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x14\n\x0cuser_name_db\x18\x02 \x01(\t\x12\x13\n\x0bpassword_db\x18\x03 \x01(\t\x12\x1b\n\x13password_confirm_db\x18\x04 \x01(\t\"?\n\x13RegisterResponse_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x14\n\x0cuser_name_db\x18\x02 \x01(\t\":\n\x0fLoginRequest_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x13\n\x0bpassword_db\x18\x02 \x01(\t\"(\n\x10LoginResponse_db\x12\x14\n\x0cuser_name_db\x18\x01 \x01(\t\"\x1d\n\napi_log_db\x12\x0f\n\x07text_db\x18\x01 \x01(\t\"\x1c\n\tdb_log_db\x12\x0f\n\x07text_db\x18\x01 \x01(\t\"\x1b\n\x07\x41ssetId\x12\x10\n\x08\x61sset_id\x18\x01 \x01(\t\"\xec\x02\n\x05\x41sset\x12\x10\n\x08\x61sset_id\x18\x01 \x01(\t\x12\x13\n\x0b\x61sset_class\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0f\n\x07picture\x18\x04 \x01(\t\x12\x14\n\x0c\x63ompany_code\x18\x05 \x01(\t\x12\x14\n\x0c\x61sset_number\x18\x06 \x01(\t\x12\x13\n\x0b\x61sset_subno\x18\x07 \x01(\t\x12\x13\n\x0b\x63ost_center\x18\x08 \x01(\t\x12+\n\x10\x61\x63quisition_date\x18\t \x01(\x0b\x32\x11.demojam2019.Date\x12\x0e\n\x06\x61mount\x18\n \x01(\x01\x12\x0f\n\x07ul_year\x18\x0b \x01(\x05\x12\x11\n\tul_period\x18\x0c \x01(\x05\x12\x0f\n\x07user_id\x18\r \x01(\t\x12&\n\x0b\x63reate_date\x18\x0e \x01(\x0b\x32\x11.demojam2019.Date\x12&\n\x0b\x63reate_time\x18\x0f \x01(\x0b\x32\x11.demojam2019.Time\"$\n\x11ListAssetsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\"7\n\x12ListAssetsResponse\x12!\n\x05\x61sset\x18\x01 \x03(\x0b\x32\x12.demojam2019.Asset\"4\n\x0fNewAssetRequest\x12!\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x12.demojam2019.Asset\".\n\x10NewAssetResponse\x12\r\n\x05\x65rror\x18\x01 \x01(\x08\x12\x0b\n\x03log\x18\x02 \x01(\t\"0\n\x04\x44\x61te\x12\x0c\n\x04year\x18\x01 \x01(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x03 \x01(\x05\"4\n\x04Time\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\x32\xcc\x03\n\tDBService\x12R\n\x0bregister_db\x12\x1f.demojam2019.RegisterRequest_db\x1a .demojam2019.RegisterResponse_db\"\x00\x12I\n\x08login_db\x12\x1c.demojam2019.LoginRequest_db\x1a\x1d.demojam2019.LoginResponse_db\"\x00\x12>\n\taddlog_db\x12\x17.demojam2019.api_log_db\x1a\x16.demojam2019.db_log_db\"\x00\x12=\n\x0fselectAssetById\x12\x14.demojam2019.AssetId\x1a\x12.demojam2019.Asset\"\x00\x12S\n\x0eselectAssetAll\x12\x1e.demojam2019.ListAssetsRequest\x1a\x1f.demojam2019.ListAssetsResponse\"\x00\x12L\n\x0binsertAsset\x12\x1c.demojam2019.NewAssetRequest\x1a\x1d.demojam2019.NewAssetResponse\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
+  serialized_pb=_b('\n\x08\x64\x62.proto\x12\x0b\x64\x65mojam2019\"p\n\x12RegisterRequest_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x14\n\x0cuser_name_db\x18\x02 \x01(\t\x12\x13\n\x0bpassword_db\x18\x03 \x01(\t\x12\x1b\n\x13password_confirm_db\x18\x04 \x01(\t\"?\n\x13RegisterResponse_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x14\n\x0cuser_name_db\x18\x02 \x01(\t\":\n\x0fLoginRequest_db\x12\x12\n\nuser_id_db\x18\x01 \x01(\t\x12\x13\n\x0bpassword_db\x18\x02 \x01(\t\"(\n\x10LoginResponse_db\x12\x14\n\x0cuser_name_db\x18\x01 \x01(\t\"\x1d\n\napi_log_db\x12\x0f\n\x07text_db\x18\x01 \x01(\t\"\x1c\n\tdb_log_db\x12\x0f\n\x07text_db\x18\x01 \x01(\t\"\x1b\n\x07\x41ssetId\x12\x10\n\x08\x61sset_id\x18\x01 \x01(\t\"\xec\x02\n\x05\x41sset\x12\x10\n\x08\x61sset_id\x18\x01 \x01(\t\x12\x13\n\x0b\x61sset_class\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0f\n\x07picture\x18\x04 \x01(\t\x12\x14\n\x0c\x63ompany_code\x18\x05 \x01(\t\x12\x14\n\x0c\x61sset_number\x18\x06 \x01(\t\x12\x13\n\x0b\x61sset_subno\x18\x07 \x01(\t\x12\x13\n\x0b\x63ost_center\x18\x08 \x01(\t\x12+\n\x10\x61\x63quisition_date\x18\t \x01(\x0b\x32\x11.demojam2019.Date\x12\x0e\n\x06\x61mount\x18\n \x01(\x01\x12\x0f\n\x07ul_year\x18\x0b \x01(\x05\x12\x11\n\tul_period\x18\x0c \x01(\x05\x12\x0f\n\x07user_id\x18\r \x01(\t\x12&\n\x0b\x63reate_date\x18\x0e \x01(\x0b\x32\x11.demojam2019.Date\x12&\n\x0b\x63reate_time\x18\x0f \x01(\x0b\x32\x11.demojam2019.Time\"$\n\x11ListAssetsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\t\"7\n\x12ListAssetsResponse\x12!\n\x05\x61sset\x18\x01 \x03(\x0b\x32\x12.demojam2019.Asset\"4\n\x0fNewAssetRequest\x12!\n\x05\x61sset\x18\x01 \x01(\x0b\x32\x12.demojam2019.Asset\"@\n\x10NewAssetResponse\x12\r\n\x05\x65rror\x18\x01 \x01(\x08\x12\x10\n\x08\x61sset_id\x18\x02 \x01(\t\x12\x0b\n\x03log\x18\x03 \x01(\t\"0\n\x04\x44\x61te\x12\x0c\n\x04year\x18\x01 \x01(\x05\x12\r\n\x05month\x18\x02 \x01(\x05\x12\x0b\n\x03\x64\x61y\x18\x03 \x01(\x05\"4\n\x04Time\x12\x0c\n\x04hour\x18\x01 \x01(\x05\x12\x0e\n\x06minute\x18\x02 \x01(\x05\x12\x0e\n\x06second\x18\x03 \x01(\x05\x32\xcc\x03\n\tDBService\x12R\n\x0bregister_db\x12\x1f.demojam2019.RegisterRequest_db\x1a .demojam2019.RegisterResponse_db\"\x00\x12I\n\x08login_db\x12\x1c.demojam2019.LoginRequest_db\x1a\x1d.demojam2019.LoginResponse_db\"\x00\x12>\n\taddlog_db\x12\x17.demojam2019.api_log_db\x1a\x16.demojam2019.db_log_db\"\x00\x12=\n\x0fselectAssetById\x12\x14.demojam2019.AssetId\x1a\x12.demojam2019.Asset\"\x00\x12S\n\x0eselectAssetAll\x12\x1e.demojam2019.ListAssetsRequest\x1a\x1f.demojam2019.ListAssetsResponse\"\x00\x12L\n\x0binsertAsset\x12\x1c.demojam2019.NewAssetRequest\x1a\x1d.demojam2019.NewAssetResponse\"\x00\x42\x36\n\x1bio.grpc.examples.helloworldB\x0fHelloWorldProtoP\x01\xa2\x02\x03HLWb\x06proto3')
 )
 
 
@@ -515,8 +515,15 @@ _NEWASSETRESPONSE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='log', full_name='demojam2019.NewAssetResponse.log', index=1,
+      name='asset_id', full_name='demojam2019.NewAssetResponse.asset_id', index=1,
       number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='log', full_name='demojam2019.NewAssetResponse.log', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -534,7 +541,7 @@ _NEWASSETRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=912,
-  serialized_end=958,
+  serialized_end=976,
 )
 
 
@@ -578,8 +585,8 @@ _DATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=960,
-  serialized_end=1008,
+  serialized_start=978,
+  serialized_end=1026,
 )
 
 
@@ -623,8 +630,8 @@ _TIME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1010,
-  serialized_end=1062,
+  serialized_start=1028,
+  serialized_end=1080,
 )
 
 _ASSET.fields_by_name['acquisition_date'].message_type = _DATE
@@ -755,8 +762,8 @@ _DBSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1065,
-  serialized_end=1525,
+  serialized_start=1083,
+  serialized_end=1543,
   methods=[
   _descriptor.MethodDescriptor(
     name='register_db',

@@ -190,7 +190,7 @@ def createAsset():
       if error is None:
           shutil.move(temp_path, images_path)
           flash('Your asset is complete!')
-          return redirect(url_for("handlers.asset", id='1'))
+          return redirect(url_for("handlers.asset", id=newAssetResponse.asset_id))
       else:
           flash(error)
           return redirect(url_for("handlers.createAsset"))
