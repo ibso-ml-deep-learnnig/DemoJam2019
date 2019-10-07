@@ -1,0 +1,16 @@
+kind: pipeline
+name: default
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    username: hme000
+    password: Infy_4321
+    repo: hme000/hme1
+    dockerfile: ./src/Frontend/Dockerfile
+    tags:
+      - latest
+    when:
+      event: push
+      branch: master
