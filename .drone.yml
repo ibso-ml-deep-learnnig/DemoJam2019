@@ -1,9 +1,8 @@
+workspace:
+  path: src/Frontend
+
 kind: pipeline
 name: default
-
-workspace:
-  path: ./src/Frontend
-
 steps:
 - name: docker
   image: plugins/docker
