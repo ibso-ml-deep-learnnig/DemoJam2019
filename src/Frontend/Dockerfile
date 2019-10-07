@@ -2,11 +2,11 @@ FROM python:3
 
 # get packages
 WORKDIR /Frontend
-COPY requirements.txt requirements.txt
+COPY ./DemoJam2019/src/Frontend/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # add files into working directory
-COPY ./src/Frontend .
+COPY . .
 
 # set listen port
 ENV PORT "5000"
