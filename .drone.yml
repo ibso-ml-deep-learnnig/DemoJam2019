@@ -1,5 +1,5 @@
-workspace:
-  path: src/Frontend
+#workspace:
+#  path: src/Frontend
 
 kind: pipeline
 name: default
