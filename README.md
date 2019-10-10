@@ -1,2 +1,2 @@
-## Welcome to Demojam 2019 1
+## Welcome to Demojam 2019 
 
