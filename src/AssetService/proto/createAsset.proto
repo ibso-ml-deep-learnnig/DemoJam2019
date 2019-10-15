@@ -3,12 +3,61 @@ syntax = "proto3";
 package asset;
 
 service s4api {
-    rpc create (assetInputs) returns (log);
-    rpc display (assetNumber) returns (assetResponse);
+    rpc create (assetInputs) returns (log) {
+    }
+    rpc display (assetNumber) returns (assetResponse) {
+    }
 }
 
 service DBapi {
-    rpc update (api_log) returns (db_log);
+    rpc insertAsset (NewAssetRequest) returns (NewAssetResponse) {
+    }
+    rpc selectAssetById (AssetId) returns (Asset) {
+    }
+}
+
+message Asset {
+    string asset_id = 1;
+    string asset_class = 2;
+    string description = 3;
+    string picture = 4;
+    string company_code = 5;
+    string asset_number = 6;
+    string asset_subno = 7;
+    string cost_center = 8;
+    Date acquisition_date = 9;
+    double amount = 10;
+    int32 ul_year = 11;
+    int32 ul_period = 12;
+    string user_id = 13;
+    Date create_date = 14;
+    Time create_time = 15;
+}
+
+message NewAssetRequest {
+    Asset asset = 1;
+}
+
+message NewAssetResponse {
+    bool error = 1;
+    string asset_id = 2;
+    string log = 3;
+}
+
+message Date {
+    int32 year = 1;
+    int32 month = 2;
+    int32 day = 3;
+}
+
+message Time {
+    int32 hour = 1;
+    int32 minute = 2;
+    int32 second = 3;
+}
+
+message AssetId {
+    string asset_id = 1;
 }
 
 message assetNumber {
@@ -17,7 +66,7 @@ message assetNumber {
 
 message assetInputs {
     string company_code = 1;
-    string asset_number = 2;
+    string asset_class = 2;
     string description = 3;
 }
 
@@ -31,7 +80,7 @@ message assetResponse {
 message log {
     string api_log = 1;
     string db_log = 2;
-    string error = 3;
+    bool has_error = 3;
 }
 
 message api_log {
