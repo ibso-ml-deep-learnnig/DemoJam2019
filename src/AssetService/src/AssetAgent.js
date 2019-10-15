@@ -4,7 +4,7 @@ const protoDescriptor = require('./grpcLoader');
 
 function callS4CreateAssetAPI(value) {
     return new Promise((resolve, reject) => {
-        request('https://gsrestservicei333288trial.hanatrial.ondemand.com/gs-rest-service/asset/',
+        request.post('https://gsrestservicei333288trial.hanatrial.ondemand.com/gs-rest-service/asset/',
             {
                 json: {
                     companyCode: value.company_code,
