@@ -4,6 +4,8 @@ const protoDescriptor = require('./grpcLoader');
 
 function callS4CreateAssetAPI(value) {
     return new Promise((resolve, reject) => {
+        console.log('call s4');
+        console.log(value);
         request.post('https://gsrestservicei333288trial.hanatrial.ondemand.com/gs-rest-service/asset/',
             {
                 json: {
@@ -16,7 +18,6 @@ function callS4CreateAssetAPI(value) {
             (err, res, body) => {
                 console.log('create asset');
                 if (err) reject(err);
-                console.log(res);
                 resolve({
                     company_code: body.companyCode,
                     asset_class: body.assetClass,
@@ -29,10 +30,12 @@ function callS4CreateAssetAPI(value) {
 
 function updateAsset2DB(value) {
     return new Promise((resolve, reject) => {
+        console.log('call db');
+        console.log(value);
         const dbEnv = process.env.DB_SERVER_ADDRESS;
         const dbAddress = dbEnv ? dbEnv : 'localhost:50051';
 
-        let assetDB = protoDescriptor.asset;
+        let assetDB = protoDescriptor.assetProto.asset;
         let client = new assetDB.DBapi(dbAddress, grpc.credentials.createInsecure());
 
         //get date
@@ -63,7 +66,6 @@ function updateAsset2DB(value) {
             }, (err, res) => {
                 if (err) reject(err);
                 console.log(typeof res);
-                //TODO: i need asset number not id here
                 resolve({
                     error: res.error,
                     asset_id: res.asset_id,
@@ -75,53 +77,63 @@ function updateAsset2DB(value) {
 
 function callS4DisplayAssetAPI(value) {
     return new Promise((resolve, reject) => {
-        // const dbEnv = process.env.DB_SERVER_ADDRESS;
-        // const dbAddress = dbEnv ? dbEnv : 'localhost:50051';
-        // //TODO: align with frontend and DB
-        // let assetDB = protoDescriptor.asset;
-        // let client = new assetDB.DBapi(dbAddress, grpc.credentials.createInsecure());
-        // client.selectAssetById({asset_id})
-        // request('https://jcodemoi333288trial.hanatrial.ondemand.com/jco_demo', (err, res, body) => {
-        //     console.log('inside diplay asset');
-        //     if (err) reject(err);
-        //     let bodyJSON = JSON.parse(body);
-        //     resolve({
-        //         company_code: bodyJSON.companyCode,
-        //         asset_number: bodyJSON.assetMainNumber,
-        //         description: undefined
-        //     })
-        // });
+        const dbEnv = process.env.DB_SERVER_ADDRESS;
+        const dbAddress = dbEnv ? dbEnv : 'localhost:50051';
+
+        let assetDB = protoDescriptor.asset;
+        let client = new assetDB.DBapi(dbAddress, grpc.credentials.createInsecure());
+        client.selectAssetById({asset_id: value.asset_id}, (err, res) => {
+            if (err) reject(err);
+            console.log(res);
+            resolve({
+                asset_id: res.asset_id,
+                asset_class: res.asset_class,
+                description: res.description,
+                picture: res.picture,
+                company_code: res.company_code,
+                asset_number: res.asset_number,
+                asset_subno: res.asset_subno,
+                cost_center: res.cost_center,
+                acquisition_date: res.acquisition_date,
+                amount: res.amount,
+                ul_year: res.ul_year,
+                ul_period: res.ul_period,
+                user_id: res.user_id,
+                create_date: res.create_date,
+                create_time: res.create_time
+            })
+        });
     })
 }
 
 function AssetAgent() {
     let args = (arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments));
     if (args.length === 1) {
-        this.assetNumber = args[0]
+        this.assetID = args[0]
     } else if (args.length === 3) {
         this.companyCode = args[0];
         this.assetClass = args[1];
         this.description = args[2]
     }
-}
-
-AssetAgent.prototype.createAsset = () => {
-    let promise = Promise.resolve({
-        company_code: this.companyCode,
-        asset_class: this.assetClass,
-        description: this.description
-    });
-    return promise
-        .then(callS4CreateAssetAPI)
-        .then(updateAsset2DB);
 };
 
-AssetAgent.prototype.displayAsset = () => {
-    let promise = Promise.resolve({
-        company_code: this.companyCode,
-    });
-    return promise.then(callS4DisplayAssetAPI)
+AssetAgent.prototype = {
+    createAsset: function () {
+        let promise = Promise.resolve({
+            company_code: this.companyCode,
+            asset_class: this.assetClass,
+            description: this.description
+        });
+        return promise
+            .then(callS4CreateAssetAPI)
+            .then(updateAsset2DB);
+    },
+    displayAsset: function () {
+        let promise = Promise.resolve({
+            asset_id: this.assetID,
+        });
+        return promise.then(callS4DisplayAssetAPI)
+    }
 };
-
 
 module.exports = AssetAgent;
