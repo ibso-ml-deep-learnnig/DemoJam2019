@@ -249,7 +249,6 @@ def explore():
     #         'picture': '../static/asset/a0002.jpg'
     #     }
     # ]
-
     return render_template("page/list.html", assets=assets)
 
 @bp.route("/asset/<string:id>", methods=("GET", "POST"))

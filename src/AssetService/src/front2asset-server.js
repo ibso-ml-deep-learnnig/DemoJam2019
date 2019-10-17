@@ -1,6 +1,6 @@
 const protoDescriptors = require('./grpcLoader');
 const grpc = require('grpc');
-const assetAgent = require('./AssetAgent');
+const AssetAgent = require('./AssetAgent');
 
 const port = process.env.PORT;
 const address = port ? `0.0.0.0:${port}` : 'localhost:50051';
@@ -12,24 +12,21 @@ function main() {
     let server = new grpc.Server();
     server.addService(asset.s4api.service, {
         create: (call, callback) => {
-            // let agent = new assetAgent(call.assetInputs.company_code, call.assetInputs.asset_number, call.assetInputs.description);
-            // let res = agent.createAsset();
-            // res.then(value => {
-            //     callback(undefined, {api_log: value.api_log, db_log: value.db_log, error: undefined})
-            // }).catch(error => {
-            //     callback(undefined, {api_log: undefined, db_log: undefined, error: undefined})
-            // });
-            // Mock create API
-            console.log(call.request);
-            let response = JSON.stringify({
-                company_code: call.request.company_code,
-                asset_number: call.request.asset_number,
-                description: call.request.description
+            let agent = new AssetAgent(call.request.company_code, call.request.asset_class, call.request.description);
+            let res = agent.createAsset();
+            res.then(value => {
+                if (value.error === true) {
+                    let logMsg = `${value.asset_id} with error ${value.log}`;
+                    callback(undefined, {api_log: undefined, db_log: logMsg, has_error: true});
+                    return;
+                }
+                callback(undefined, {api_log: undefined, db_log: undefined, error: true})
+            }).catch(error => {
+                callback(undefined, {api_log: error, db_log: error, error: true})
             });
-            callback(undefined, {api_log: response, db_log: "here is db log", error: undefined})
         },
         display: (call, callback) => {
-            let agent = new assetAgent(call.request.value);
+            let agent = new AssetAgent(call.request.asset_id);
             let res = agent.displayAsset();
             res.then(value => {
                 callback(undefined, {
