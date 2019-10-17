@@ -20,7 +20,8 @@ function main() {
                     callback(undefined, {api_log: undefined, db_log: logMsg, has_error: true});
                     return;
                 }
-                callback(undefined, {api_log: undefined, db_log: undefined, error: true})
+                let log = `Asset ID: ${value.asset_id} created successful.`;
+                callback(undefined, {api_log: log, db_log: log, error: false})
             }).catch(error => {
                 callback(undefined, {api_log: error, db_log: error, error: true})
             });
@@ -30,16 +31,40 @@ function main() {
             let res = agent.displayAsset();
             res.then(value => {
                 callback(undefined, {
+                    asset_id: value.asset_id,
+                    asset_class: value.asset_class,
+                    description: value.description,
+                    picture: value.picture,
                     company_code: value.company_code,
                     asset_number: value.asset_number,
-                    description: value.description,
+                    asset_subno: value.asset_subno,
+                    cost_center: value.cost_center,
+                    acquisition_date: value.acquisition_date,
+                    amount: value.amount,
+                    ul_year: value.ul_year,
+                    ul_period: value.ul_period,
+                    user_id: value.user_id,
+                    create_date: value.create_date,
+                    create_time: value.create_time,
                     log: undefined
                 })
             }).catch(error => {
                 callback(undefined, {
+                    asset_id: undefined,
+                    asset_class: undefined,
+                    description: undefined,
+                    picture: undefined,
                     company_code: undefined,
                     asset_number: undefined,
-                    description: undefined,
+                    asset_subno: undefined,
+                    cost_center: undefined,
+                    acquisition_date: undefined,
+                    amount: undefined,
+                    ul_year: undefined,
+                    ul_period: undefined,
+                    user_id: undefined,
+                    create_date: undefined,
+                    create_time: undefined,
                     log: error
                 })
             });
