@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.7
 
 # download the grpc health probe
 RUN GRPC_HEALTH_PROBE_VERSION=v0.3.0 && \
