@@ -11,7 +11,7 @@ services:
     ports:
       - "50050:50050"
 
-  db_server:
+  db-server:
     image: ericwudocker01/demojam2019_dbservice
     links:
       - db
