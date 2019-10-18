@@ -13,7 +13,7 @@ Asset:
   image:
     repository: hme000/hme1
     tag: asset
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
