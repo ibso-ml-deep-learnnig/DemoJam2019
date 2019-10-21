@@ -13,7 +13,7 @@ DB:
   image:
     repository: hme000/hme1
     tag: db_server
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""

@@ -13,7 +13,7 @@ Frontend:
   image:
     repository: hme000/hme1
     tag: frontend
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
