@@ -65,9 +65,16 @@ message assetNumber {
 }
 
 message assetInputs {
-    string company_code = 1;
-    string asset_class = 2;
-    string description = 3;
+    string asset_class = 1;
+    string description = 2;
+    string picture = 3;
+    string company_code = 4;
+    string cost_center = 5;
+    Date acquisition_date = 6;
+    double amount = 7;
+    int32 ul_year = 8;
+    int32 ul_period = 9;
+    string user_id = 10;
 }
 
 message assetResponse {

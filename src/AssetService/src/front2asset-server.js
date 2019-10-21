@@ -12,7 +12,19 @@ function main() {
     let server = new grpc.Server();
     server.addService(asset.s4api.service, {
         create: (call, callback) => {
-            let agent = new AssetAgent(call.request.company_code, call.request.asset_class, call.request.description);
+            let agent = new AssetAgent(
+                "create",
+                call.request.asset_class,
+                call.request.description,
+                call.request.picture,
+                call.request.company_code,
+                call.request.cost_center,
+                call.request.acquisition_date,
+                call.request.amount,
+                call.request.ul_year,
+                call.request.ul_period,
+                call.request.user_id
+            );
             let res = agent.createAsset();
             res.then(value => {
                 if (value.error === true) {
@@ -21,13 +33,16 @@ function main() {
                     return;
                 }
                 let log = `Asset ID: ${value.asset_id} created successful.`;
-                callback(undefined, {api_log: log, db_log: log, error: false})
+                callback(undefined, {api_log: log, db_log: log, has_error: false})
             }).catch(error => {
-                callback(undefined, {api_log: error, db_log: error, error: true})
+                callback(undefined, {api_log: error, db_log: error, has_error: true})
             });
         },
         display: (call, callback) => {
-            let agent = new AssetAgent(call.request.asset_id);
+            let agent = new AssetAgent(
+                "display",
+                call.request.asset_id
+            );
             let res = agent.displayAsset();
             res.then(value => {
                 callback(undefined, {

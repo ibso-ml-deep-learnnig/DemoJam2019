@@ -19,10 +19,17 @@ function callS4CreateAssetAPI(value) {
                 console.log('create asset');
                 if (err) reject(err);
                 resolve({
-                    company_code: body.companyCode,
                     asset_class: body.assetClass,
+                    description: body.description,
+                    picture: value.picture,
+                    company_code: body.companyCode,
                     asset_number: body.assetNum,
-                    description: body.description
+                    cost_center: value.cost_center,
+                    acquisition_date: value.acquisition_date,
+                    amount: value.amount,
+                    ul_year: value.ul_year,
+                    ul_period: value.ul_period,
+                    user_id: value.user_id
                 });
             });
     })
@@ -37,32 +44,25 @@ function updateAsset2DB(value) {
 
         let assetDB = protoDescriptor.assetProto.asset;
         let client = new assetDB.DBapi(dbAddress, grpc.credentials.createInsecure());
-
-        //get date
-        let dateObj = new Date();
-        let month = dateObj.getUTCMonth() + 1; //months from 1-12
-        let day = dateObj.getUTCDate();
-        let year = dateObj.getUTCFullYear();
-
         client.insertAsset(
             {
-                asset_id: "9",
+                asset_id: "/new",
                 asset_class: value.asset_class,
                 description: value.description,
-                picture: "/root/",
+                picture: value.picture,
                 company_code: value.company_code,
                 assert_number: value.asset_number,
                 asset_subno: "0",
-                cost_center: "CC_A001",
+                cost_center: value.cost_center,
                 acquisition_date: {
-                    year: year,
-                    month: month,
-                    day: day
+                    year: value.acquisition_date.year,
+                    month: value.acquisition_date.month,
+                    day: value.acquisition_date.day
                 },
-                amount: 1000.10,
-                ul_year: 10,
-                ul_period: 12,
-                user_id: "i333463"
+                amount: value.amount,
+                ul_year: value.ul_year,
+                ul_period: value.ul_period,
+                user_id: value.user_id
             }, (err, res) => {
                 if (err) reject(err);
                 console.log(typeof res);
@@ -107,22 +107,37 @@ function callS4DisplayAssetAPI(value) {
 }
 
 function AssetAgent() {
-    let args = (arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments));
-    if (args.length === 1) {
-        this.assetID = args[0]
-    } else if (args.length === 3) {
-        this.companyCode = args[0];
+    let args = Array.apply(null, arguments);
+    if (args[0] === "create") {
         this.assetClass = args[1];
-        this.description = args[2]
+        this.description = args[2];
+        this.picture = args[3];
+        this.companyCode = args[4];
+        this.costCenter = args[5];
+        this.acquisitionDate = args[6];
+        this.amount = args[7];
+        this.ulYear = args[8];
+        this.ulPeriod = args[9];
+        this.userID = args[10]
     }
-};
+    if (args[0] === "display") {
+        this.assetID = args[0]
+    }
+}
 
 AssetAgent.prototype = {
     createAsset: function () {
         let promise = Promise.resolve({
-            company_code: this.companyCode,
             asset_class: this.assetClass,
-            description: this.description
+            description: this.description,
+            picture: this.picture,
+            company_code: this.companyCode,
+            cost_center: this.costCenter,
+            acquisition_date: this.acquisitionDate,
+            amount: this.amount,
+            ul_year: this.ulYear,
+            ul_period: this.ulPeriod,
+            user_id: this.userID
         });
         return promise
             .then(callS4CreateAssetAPI)
