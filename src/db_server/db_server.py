@@ -119,6 +119,8 @@ class DBService(db_pb2_grpc.DBServiceServicer):
     def insertAsset(self, request, context):
         print('start insert an asset')
 
+        print(request)
+
         newAsset = fill_new_asset(request.asset)
         response = db_pb2.NewAssetResponse()
 
