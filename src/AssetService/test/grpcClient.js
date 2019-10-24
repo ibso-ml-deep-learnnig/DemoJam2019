@@ -23,7 +23,6 @@ function main() {
         user_id: 'I072179'
     }, (err, response) => {
         if (err) console.error(err);
-        console.log(response);
     })
 }
 
