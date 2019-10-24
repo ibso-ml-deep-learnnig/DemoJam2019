@@ -11,6 +11,7 @@ from genproto import db_pb2
 from genproto import db_pb2_grpc
 from grpc_health.v1 import health_pb2
 from grpc_health.v1 import health_pb2_grpc
+from logger import getJSONLogger
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -120,6 +121,10 @@ class DBService(db_pb2_grpc.DBServiceServicer):
         print('start insert an asset')
 
         print(request)
+
+        logger = getJSONLogger('db-server')
+        logger.info("Insert asset ")
+        logger.info(request.asset)
 
         newAsset = fill_new_asset(request.asset)
         response = db_pb2.NewAssetResponse()
