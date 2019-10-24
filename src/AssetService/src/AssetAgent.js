@@ -49,23 +49,25 @@ function updateAsset2DB(value) {
         let client = new db.DBService(dbAddress, grpc.credentials.createInsecure());
         client.insertAsset(
             {
-                asset_id: "/new",
-                asset_class: value.asset_class,
-                description: value.description,
-                picture: value.picture,
-                company_code: value.company_code,
-                assert_number: value.asset_number,
-                asset_subno: "0",
-                cost_center: value.cost_center,
-                acquisition_date: {
-                    year: value.acquisition_date.year,
-                    month: value.acquisition_date.month,
-                    day: value.acquisition_date.day
-                },
-                amount: value.amount,
-                ul_year: value.ul_year,
-                ul_period: value.ul_period,
-                user_id: value.user_id
+                asset: {
+                    asset_id: "/new",
+                    asset_class: value.asset_class,
+                    description: value.description,
+                    picture: value.picture,
+                    company_code: value.company_code,
+                    assert_number: value.asset_number,
+                    asset_subno: "0",
+                    cost_center: value.cost_center,
+                    acquisition_date: {
+                        year: value.acquisition_date.year,
+                        month: value.acquisition_date.month,
+                        day: value.acquisition_date.day
+                    },
+                    amount: value.amount,
+                    ul_year: value.ul_year,
+                    ul_period: value.ul_period,
+                    user_id: value.user_id
+                }
             }, (err, response) => {
                 if (err) reject(err);
                 console.log("Response");
