@@ -97,9 +97,10 @@ message assetResponse {
 }
 
 message log {
-    string api_log = 1;
-    string db_log = 2;
-    bool has_error = 3;
+    string asset_id = 1;
+    string api_log = 2;
+    string db_log = 3;
+    bool has_error = 4;
 }
 
 message api_log {

@@ -33,7 +33,9 @@ function main() {
                     return;
                 }
                 let log = `Asset ID: ${value.asset_id} created successful.`;
-                callback(undefined, {api_log: log, db_log: log, has_error: false})
+                callback(undefined, {
+                    asset_id: value.asset_id, api_log: log, db_log: log, has_error: false
+                })
             }).catch(error => {
                 callback(undefined, {api_log: error, db_log: error, has_error: true})
             });
