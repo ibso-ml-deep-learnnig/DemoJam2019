@@ -32,7 +32,7 @@ services:
     ports:
       - "8080:8080"
 
-  assetcreation:
+  asset:
     image: ericwudocker01/demojam2019_asset
     ports:
       - "50051:50051"
