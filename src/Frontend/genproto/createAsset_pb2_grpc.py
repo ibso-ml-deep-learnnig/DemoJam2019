@@ -63,7 +63,7 @@ def add_s4apiServicer_to_server(servicer, server):
   server.add_generic_rpc_handlers((generic_handler,))
 
 
-class DBapiStub(object):
+class DBServiceStub(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -74,18 +74,18 @@ class DBapiStub(object):
       channel: A grpc.Channel.
     """
     self.insertAsset = channel.unary_unary(
-        '/asset.DBapi/insertAsset',
+        '/asset.DBService/insertAsset',
         request_serializer=createAsset__pb2.NewAssetRequest.SerializeToString,
         response_deserializer=createAsset__pb2.NewAssetResponse.FromString,
         )
     self.selectAssetById = channel.unary_unary(
-        '/asset.DBapi/selectAssetById',
+        '/asset.DBService/selectAssetById',
         request_serializer=createAsset__pb2.AssetId.SerializeToString,
         response_deserializer=createAsset__pb2.Asset.FromString,
         )
 
 
-class DBapiServicer(object):
+class DBServiceServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -104,7 +104,7 @@ class DBapiServicer(object):
     raise NotImplementedError('Method not implemented!')
 
 
-def add_DBapiServicer_to_server(servicer, server):
+def add_DBServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'insertAsset': grpc.unary_unary_rpc_method_handler(
           servicer.insertAsset,
@@ -118,5 +118,5 @@ def add_DBapiServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'asset.DBapi', rpc_method_handlers)
+      'asset.DBService', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
