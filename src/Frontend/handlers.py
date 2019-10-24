@@ -182,7 +182,7 @@ def createAsset():
       logger.info("request: " + str(newAsset))
 
       url = os.environ.get('ASSET_SERVICE_ADDR', 'localhost:50051')
-      
+
       if error is None:
           logger.info("asset service address: " + url)
 
