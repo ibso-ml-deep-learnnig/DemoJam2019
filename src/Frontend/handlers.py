@@ -152,21 +152,32 @@ def createAsset():
       else:
           error = 'No picture uploaded'
 
-      newAsset = {
+      newAsset = createAsset_pb2.assetInputs(
+          asset_class = request.form["asset_class"],
+          description = request.form["description"],
+          picture = filename,
+          company_code = request.form["company_code"],
+          cost_center = request.form["cost_center"],
+          acquisition_date = {'year': 2019, 'month': 8, 'day': 31},
+          amount = float(request.form["amount"]),
+          ul_year = int(request.form["useful_life_y"]),
+          ul_period = int(request.form["useful_life_m"]),
+          user_id = session["user_id"]
+      )
           # 'asset_id': '<New>',
-          'asset_class': request.form["asset_class"],
-          'description': request.form["description"],
-          'picture': filename,
-          'company_code': request.form["company_code"],
+          # 'asset_class': request.form["asset_class"],
+          # 'description': request.form["description"],
+          # 'picture': filename,
+          # 'company_code': request.form["company_code"],
           # 'asset_number': '9001',
           # 'asset_subno': '0000',
-          'cost_center': request.form["cost_center"],
-          'acquisition_date': {'year': 2019, 'month': 8, 'day': 31},
-          'amount': float(request.form["amount"]),
-          'ul_year': int(request.form["useful_life_y"]),
-          'ul_period': int(request.form["useful_life_m"]),
-          'user_id': session["user_id"]
-      }
+      #     'cost_center': request.form["cost_center"],
+      #     'acquisition_date': {'year': 2019, 'month': 8, 'day': 31},
+      #     'amount': float(request.form["amount"]),
+      #     'ul_year': int(request.form["useful_life_y"]),
+      #     'ul_period': int(request.form["useful_life_m"]),
+      #     'user_id': session["user_id"]
+      # }
 
       logger.info("request: " + str(newAsset))
 
@@ -176,7 +187,7 @@ def createAsset():
 
           with grpc.insecure_channel(url) as channel:
               stub = createAsset_pb2_grpc.s4apiStub(channel)
-              newAssetResponse = stub.create(createAsset_pb2.assetInputs(asset=newAsset))
+              newAssetResponse = stub.create(newAsset)
               if newAssetResponse.has_error is True:
                   error  = 'Asset has error'
 
