@@ -86,27 +86,27 @@ function callS4DisplayAssetAPI(value) {
         const dbEnv = process.env.DB_SERVER_ADDRESS;
         const dbAddress = dbEnv ? dbEnv : 'localhost:50051';
 
-        let assetDB = protoDescriptor.asset;
-        let client = new assetDB.DBapi(dbAddress, grpc.credentials.createInsecure());
-        client.selectAssetById({asset_id: value.asset_id}, (err, res) => {
+        let db = protoDescriptor.demojam2019;
+        let client = new db.DBService(dbAddress, grpc.credentials.createInsecure());
+        client.selectAssetById({asset_id: value.asset_id}, (err, response) => {
             if (err) reject(err);
-            console.log(res);
+            console.log(response);
             resolve({
-                asset_id: res.asset_id,
-                asset_class: res.asset_class,
-                description: res.description,
-                picture: res.picture,
-                company_code: res.company_code,
-                asset_number: res.asset_number,
-                asset_subno: res.asset_subno,
-                cost_center: res.cost_center,
-                acquisition_date: res.acquisition_date,
-                amount: res.amount,
-                ul_year: res.ul_year,
-                ul_period: res.ul_period,
-                user_id: res.user_id,
-                create_date: res.create_date,
-                create_time: res.create_time
+                asset_id: response.asset_id,
+                asset_class: response.asset_class,
+                description: response.description,
+                picture: response.picture,
+                company_code: response.company_code,
+                asset_number: response.asset_number,
+                asset_subno: response.asset_subno,
+                cost_center: response.cost_center,
+                acquisition_date: response.acquisition_date,
+                amount: response.amount,
+                ul_year: response.ul_year,
+                ul_period: response.ul_period,
+                user_id: response.user_id,
+                create_date: response.create_date,
+                create_time: response.create_time
             })
         });
     })
