@@ -1,6 +1,6 @@
 const path = require('path');
 const ASSET_PROTO_PATH = path.resolve(__dirname, '../proto/createAsset.proto');
-const DB_PROTO_PATH = path.resolve(__dirname, '../../db_server/proto/db.proto');
+const DB_PROTO_PATH = path.resolve(__dirname, '../proto/db.proto');
 const HEALTH_PROTO_PATH = path.join(__dirname, '../proto/grpc/health/v1/health.proto');
 const grpc = require('grpc');
 const protoLoader = require('@grpc/proto-loader');
