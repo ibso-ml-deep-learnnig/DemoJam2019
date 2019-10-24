@@ -73,10 +73,15 @@ class DBapiStub(object):
     Args:
       channel: A grpc.Channel.
     """
-    self.update = channel.unary_unary(
-        '/asset.DBapi/update',
-        request_serializer=createAsset__pb2.api_log.SerializeToString,
-        response_deserializer=createAsset__pb2.db_log.FromString,
+    self.insertAsset = channel.unary_unary(
+        '/asset.DBapi/insertAsset',
+        request_serializer=createAsset__pb2.NewAssetRequest.SerializeToString,
+        response_deserializer=createAsset__pb2.NewAssetResponse.FromString,
+        )
+    self.selectAssetById = channel.unary_unary(
+        '/asset.DBapi/selectAssetById',
+        request_serializer=createAsset__pb2.AssetId.SerializeToString,
+        response_deserializer=createAsset__pb2.Asset.FromString,
         )
 
 
@@ -84,7 +89,14 @@ class DBapiServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
-  def update(self, request, context):
+  def insertAsset(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def selectAssetById(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -94,10 +106,15 @@ class DBapiServicer(object):
 
 def add_DBapiServicer_to_server(servicer, server):
   rpc_method_handlers = {
-      'update': grpc.unary_unary_rpc_method_handler(
-          servicer.update,
-          request_deserializer=createAsset__pb2.api_log.FromString,
-          response_serializer=createAsset__pb2.db_log.SerializeToString,
+      'insertAsset': grpc.unary_unary_rpc_method_handler(
+          servicer.insertAsset,
+          request_deserializer=createAsset__pb2.NewAssetRequest.FromString,
+          response_serializer=createAsset__pb2.NewAssetResponse.SerializeToString,
+      ),
+      'selectAssetById': grpc.unary_unary_rpc_method_handler(
+          servicer.selectAssetById,
+          request_deserializer=createAsset__pb2.AssetId.FromString,
+          response_serializer=createAsset__pb2.Asset.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

@@ -153,13 +153,13 @@ def createAsset():
           error = 'No picture uploaded'
 
       newAsset = {
-          'asset_id': '<New>',
+          # 'asset_id': '<New>',
           'asset_class': request.form["asset_class"],
           'description': request.form["description"],
           'picture': filename,
           'company_code': request.form["company_code"],
-          'asset_number': '9001',
-          'asset_subno': '0000',
+          # 'asset_number': '9001',
+          # 'asset_subno': '0000',
           'cost_center': request.form["cost_center"],
           'acquisition_date': {'year': 2019, 'month': 8, 'day': 31},
           'amount': float(request.form["amount"]),
@@ -170,14 +170,14 @@ def createAsset():
 
       logger.info("request: " + str(newAsset))
 
-      url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'localhost:8001')
+      url = os.environ.get('ASSET_SERVICE_ADDR', 'localhost:50051')
       if error is None:
           logger.info("asset service address: " + url)
 
           with grpc.insecure_channel(url) as channel:
-              stub = db_pb2_grpc.DBServiceStub(channel)
-              newAssetResponse = stub.insertAsset(db_pb2.NewAssetRequest(asset=newAsset))
-              if newAssetResponse.error is True:
+              stub = createAsset_pb2_grpc.s4apiStub(channel)
+              newAssetResponse = stub.create(createAsset_pb2.assetInputs(asset=newAsset))
+              if newAssetResponse.has_error is True:
                   error  = 'Asset has error'
 
               # stub = createAsset_pb2_grpc.s4apiStub(channel)
@@ -266,10 +266,10 @@ def asset(id):
 
         asset = None
 
-        url = os.environ.get('DB_SERVER_SERVICE_ADDR', 'localhost:8001')
+        url = os.environ.get('ASSET_SERVICE_ADDR', 'localhost:50051')
         with grpc.insecure_channel(url) as channel:
-            stub = db_pb2_grpc.DBServiceStub(channel)
-            asset = stub.selectAssetById(db_pb2.AssetId(asset_id=id))
+            stub = createAsset_pb2_grpc.s4apiStub(channel)
+            asset = stub.display(createAsset_pb2.AssetId(asset_id=id))
 
         if asset is None:
             flash('No Asset Found!')
