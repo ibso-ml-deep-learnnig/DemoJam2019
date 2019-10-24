@@ -69,6 +69,7 @@ function updateAsset2DB(value) {
             }, (err, response) => {
                 if (err) reject(err);
                 console.log("Response");
+                console.log(Date());
                 resolve({
                     error: response.error,
                     asset_id: response.asset_id,
