@@ -43,8 +43,10 @@ function updateAsset2DB(value) {
         const dbEnv = process.env.DB_SERVER_ADDRESS;
         const dbAddress = dbEnv ? dbEnv : 'localhost:50051';
 
-        let assetDB = protoDescriptor.assetProto.asset;
-        let client = new assetDB.DBapi(dbAddress, grpc.credentials.createInsecure());
+        console.log(dbAddress);
+
+        let db = protoDescriptor.dbProto.demojam2019;
+        let client = new db.DBService(dbAddress, grpc.credentials.createInsecure());
         client.insertAsset(
             {
                 asset_id: "/new",
@@ -67,6 +69,7 @@ function updateAsset2DB(value) {
             }, (err, response) => {
                 if (err) reject(err);
                 console.log("Response");
+                console.log(Date());
                 resolve({
                     error: response.error,
                     asset_id: response.asset_id,
