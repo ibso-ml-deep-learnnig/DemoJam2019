@@ -17,6 +17,7 @@ function callS4CreateAssetAPI(value) {
             },
             (err, res, body) => {
                 console.log('create asset');
+                console.log(body);
                 if (err) reject(err);
                 resolve({
                     asset_class: body.assetClass,
@@ -63,13 +64,13 @@ function updateAsset2DB(value) {
                 ul_year: value.ul_year,
                 ul_period: value.ul_period,
                 user_id: value.user_id
-            }, (err, res) => {
+            }, (err, response) => {
                 if (err) reject(err);
-                console.log(typeof res);
+                console.log("Response");
                 resolve({
-                    error: res.error,
-                    asset_id: res.asset_id,
-                    log: res.log
+                    error: response.error,
+                    asset_id: response.asset_id,
+                    log: response.log
                 });
             })
     })
