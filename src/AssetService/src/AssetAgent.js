@@ -45,8 +45,8 @@ function updateAsset2DB(value) {
 
         console.log(dbAddress);
 
-        let assetDB = protoDescriptor.assetProto.asset;
-        let client = new assetDB.DBService(dbAddress, grpc.credentials.createInsecure());
+        let db = protoDescriptor.dbProto.demojam2019;
+        let client = new db.DBService(dbAddress, grpc.credentials.createInsecure());
         client.insertAsset(
             {
                 asset_id: "/new",
