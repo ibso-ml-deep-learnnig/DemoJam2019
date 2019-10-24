@@ -189,7 +189,7 @@ def createAsset():
               stub = createAsset_pb2_grpc.s4apiStub(channel)
               newAssetResponse = stub.create(newAsset)
               if newAssetResponse.has_error is True:
-                  error  = 'Asset has error'
+                  error  = 'Has error'
 
               # stub = createAsset_pb2_grpc.s4apiStub(channel)
               # response = stub.create(createAsset_pb2.assetInputs(company_code='0001', asset_number='60001', description='testAsset'))
@@ -201,7 +201,7 @@ def createAsset():
       if error is None:
           shutil.move(temp_path, images_path)
           flash('Your asset is complete!')
-          return redirect(url_for("handlers.asset", id=newAssetResponse.asset_id))
+          return redirect(url_for("handlers.asset", id=newAssetResponse.db_log))
       else:
           flash(error)
           return redirect(url_for("handlers.createAsset"))
