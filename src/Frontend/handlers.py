@@ -230,7 +230,7 @@ def asset(id):
 
         with grpc.insecure_channel(url) as channel:
             stub = createAsset_pb2_grpc.s4apiStub(channel)
-            asset = stub.display(createAsset_pb2.AssetId(asset_id=id))
+            asset = stub.display(createAsset_pb2.assetNumber(value=id))
 
         logger.info(asset)
 
