@@ -85,9 +85,10 @@ function callS4DisplayAssetAPI(value) {
     return new Promise((resolve, reject) => {
         const dbEnv = process.env.DB_SERVER_ADDRESS;
         const dbAddress = dbEnv ? dbEnv : 'localhost:50051';
-
-        let db = protoDescriptor.demojam2019;
+        console.log('call display api');
+        let db = protoDescriptor.dbProto.demojam2019;
         let client = new db.DBService(dbAddress, grpc.credentials.createInsecure());
+        console.log(value.asset_id);
         client.selectAssetById({asset_id: value.asset_id}, (err, response) => {
             if (err) reject(err);
             console.log(response);
@@ -127,7 +128,7 @@ function AssetAgent() {
         this.userID = args[10]
     }
     if (args[0] === "display") {
-        this.assetID = args[0]
+        this.assetID = args[1]
     }
 }
 
