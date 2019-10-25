@@ -14,11 +14,11 @@ CREATE TABLE log (
 
 CREATE TABLE asset (
   asset_id char(36) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  asset_class char(6) NOT NULL,
+  asset_class char(8) NOT NULL,
   description text NOT NULL,
   picture char(50) NOT NULL,
   company_coe char(4) NOT NULL,
-  asset_number char(10) NOT NULL,
+  asset_number char(12) NOT NULL,
   asset_subno char(4) NOT NULL,
   cost_center char(10) NOT NULL,
   acquisiton_date date NOT NULL,
