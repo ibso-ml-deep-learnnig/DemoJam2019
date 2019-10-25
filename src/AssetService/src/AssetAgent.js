@@ -10,7 +10,7 @@ function callS4CreateAssetAPI(value) {
             {
                 json: {
                     companyCode: value.company_code,
-                    assetClass: value.asset_class,
+                    assetClass: `0000${value.asset_class}`,
                     assetNum: "",
                     description: value.description
                 }
@@ -19,7 +19,9 @@ function callS4CreateAssetAPI(value) {
                 console.log('create asset');
                 console.log(body);
                 if (err) reject(err);
+                console.log(body);
                 resolve({
+                    raw_asset_class: value.asset_class,
                     asset_class: body.assetClass,
                     description: body.description,
                     picture: value.picture,
@@ -47,11 +49,12 @@ function updateAsset2DB(value) {
 
         let db = protoDescriptor.dbProto.demojam2019;
         let client = new db.DBService(dbAddress, grpc.credentials.createInsecure());
+        console.log(value);
         client.insertAsset(
             {
                 asset: {
                     asset_id: "/new",
-                    asset_class: value.asset_class,
+                    asset_class: value.raw_asset_class,
                     description: value.description,
                     picture: value.picture,
                     company_code: value.company_code,
