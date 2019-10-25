@@ -55,7 +55,7 @@ function updateAsset2DB(value) {
                     description: value.description,
                     picture: value.picture,
                     company_code: value.company_code,
-                    assert_number: value.asset_number,
+                    asset_number: value.asset_number,
                     asset_subno: "0",
                     cost_center: value.cost_center,
                     acquisition_date: {
