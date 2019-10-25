@@ -118,10 +118,6 @@ class DBService(db_pb2_grpc.DBServiceServicer):
         return response
 
     def insertAsset(self, request, context):
-        print('start insert an asset')
-
-        print(request)
-
         logger = getJSONLogger('db-server')
         logger.info("Insert asset ")
         logger.info(request.asset)
