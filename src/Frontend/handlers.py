@@ -279,6 +279,9 @@ def asset(id):
         asset = None
 
         url = os.environ.get('ASSET_SERVICE_ADDR', 'localhost:50051')
+
+        logger.info("asset service address: " + url)
+
         with grpc.insecure_channel(url) as channel:
             stub = createAsset_pb2_grpc.s4apiStub(channel)
             asset = stub.display(createAsset_pb2.AssetId(asset_id=id))
