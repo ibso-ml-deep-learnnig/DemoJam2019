@@ -43,10 +43,13 @@ function main() {
         display: (call, callback) => {
             let agent = new AssetAgent(
                 "display",
-                call.request.asset_id
+                call.request.value
             );
+            console.log("display");
+            console.log(call.request.value);
             let res = agent.displayAsset();
             res.then(value => {
+                console.log(value);
                 callback(undefined, {
                     asset_id: value.asset_id,
                     asset_class: value.asset_class,
