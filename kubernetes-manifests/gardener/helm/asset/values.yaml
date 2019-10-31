@@ -11,8 +11,8 @@ Asset:
   containername: asset
   containerPort: 50051
   image:
-    repository: hme000/hme1
-    tag: asset
+    repository: hme000/asset
+    tag: latest
     pullPolicy: Always
 
 nameOverride: ""

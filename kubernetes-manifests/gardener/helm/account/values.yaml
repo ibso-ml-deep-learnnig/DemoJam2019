@@ -11,8 +11,8 @@ Account:
   containername: server
   containerPort: 50050
   image:
-    repository: hme000/hme1
-    tag: account
+    repository: hme000/account
+    tag: latest
     pullPolicy: Always
 
 nameOverride: ""

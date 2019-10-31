@@ -11,8 +11,8 @@ Frontend:
   containername: server
   containerPort: 5000
   image:
-    repository: hme000/hme1
-    tag: frontend
+    repository: hme000/frontend
+    tag: latest
     pullPolicy: Always
 
 nameOverride: ""

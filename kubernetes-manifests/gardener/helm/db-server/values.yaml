@@ -11,8 +11,8 @@ DB:
   containername: server
   containerPort: 8001
   image:
-    repository: hme000/hme1
-    tag: db_server
+    repository: hme000/db-server
+    tag: latest
     pullPolicy: Always
 
 nameOverride: ""
