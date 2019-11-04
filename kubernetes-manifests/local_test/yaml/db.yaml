@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: db
-        image: hme000/hme1:db
+        image: hme000/db
         args: ["--default-authentication-plugin=mysql_native_password"]
         env:
         - name: MYSQL_ROOT_PASSWORD

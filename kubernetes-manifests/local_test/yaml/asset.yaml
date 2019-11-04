@@ -28,7 +28,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: hme000/hme1:asset
+        image: hme000/asset
         ports:
         - name: grpc
           containerPort: 50051

@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: hme000/hme1:db_server
+          image: hme000/db-server
           ports:
           - name: http
             containerPort: 8001

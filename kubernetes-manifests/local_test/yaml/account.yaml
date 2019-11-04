@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: hme000/hme1:account
+          image: hme000/account
           ports:
           - name: http
             containerPort: 50050

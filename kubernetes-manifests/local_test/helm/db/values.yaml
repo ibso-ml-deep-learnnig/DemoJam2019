@@ -11,9 +11,9 @@ db:
   containername: db
   containerPort: 3306
   image:
-    repository: hme000/hme1
-    tag: db
-    pullPolicy: IfNotPresent
+    repository: hme000/db
+    tag: latest
+    pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
