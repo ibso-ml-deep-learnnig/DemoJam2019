@@ -4,6 +4,7 @@ metadata:
   name: frontend-ingress
   annotations:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "61"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 # define the routing rules for the ingress in its 'spec'
 spec:
