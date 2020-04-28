@@ -8,7 +8,7 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       name: web
-      clusterIP: None
+  clusterIP: None
   selector:
     app.kubernetes.io/name: {{ include "db.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
