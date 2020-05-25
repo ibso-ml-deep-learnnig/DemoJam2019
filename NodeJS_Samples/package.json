@@ -1,0 +1,22 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "nodejs samples",
+  "main": "Expres.js",
+  "dependencies": {
+    "express": "^4"
+  },
+  "scripts": {
+    "start": "nodemon express.js",
+    "test": "node start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.wdf.sap.corp/CTSM-SHA/CAP-NodeJS"
+  },
+  "author": "Matthew",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

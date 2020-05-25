@@ -30,7 +30,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: ibso-demojam-2019.ingress.assetexplo.trail.shoot.canary.k8s-hana.ondemand.com
+    - host: ibso-demojam-2019.ingress.assetexplo.matthew.shoot.canary.k8s-hana.ondemand.com
       paths:
       - path: /(.*)
 

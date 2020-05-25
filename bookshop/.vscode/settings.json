@@ -1,0 +1,12 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "${workspaceFolder}\\bookshop.db",
+            "dialect": "SQLite",
+            "isActive": true,
+            "isConnected": true,
+            "name": "sqlite"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

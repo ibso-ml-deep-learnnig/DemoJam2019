@@ -1,0 +1,30 @@
+{
+  "name": "@capire/bookshop",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@sap/cds": "^3",
+    "@sap/hana-client": "^2.4.177",
+    "@sap/xsenv": "^2.2.0",
+    "@sap/xssec": "^2.2.5",
+    "ansi-styles": "^4.2.1",
+    "express": "^4",
+    "passport": "^0.4.1",
+    "sqlite3": "^4.2.0"
+  },
+  "scripts": {
+    "start": "npx cds run"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "bookshop.db"
+        }
+      }
+    }
+  }
+}

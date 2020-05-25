@@ -9,7 +9,7 @@ metadata:
 # define the routing rules for the ingress in its 'spec'
 spec:
   rules:
-  - host: ibso-demojam-2019.ingress.assetexplo.trail.shoot.canary.k8s-hana.ondemand.com
+  - host: ibso-demojam-2019.ingress.assetexplo.matthew.shoot.canary.k8s-hana.ondemand.com
     http:
       paths:
       - path: /(.*)
