@@ -100,7 +100,7 @@ spec:
   rules:
     # an ingress can have one to many hosts. A host is fully quallified URL
     # TODO: replace in ingress host URL the <participantId>, <cluster-name> and <project-name> parameters of the training cluster
-    # e.g. '0007-simple-nginx.ingress.wdfcw48.k8s-train.shoot.canary.k8s-hana.ondemand.com'
+    # e.g. '0007-simple-nginx.ingress.XXXX.k8s-train.shoot.canary.k8s-hana.ondemand.com'
   - host: ibso-demojam-2019.ingress.assetexplo.trail.shoot.canary.k8s-hana.ondemand.com
     http:
       paths:
